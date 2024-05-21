@@ -54,7 +54,7 @@ export default function AuthenticationForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isPhotoSelected, setIsPhotoSelected] = useState(false);
 
-  const afterAuth = "/dashboard";
+  const afterAuth = "/monitoring";
 
   useEffect(() => {
     const auth = getAuth(app);

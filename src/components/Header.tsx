@@ -79,7 +79,7 @@ export default function Header() {
         <Link href="/#">
           <Image
             width={200}
-            alt="Logo Next-Gen Hydroponics"
+            alt="Logo Hydroheatlh"
             src={LogoHydroHealth.src}
           />
         </Link>
@@ -92,7 +92,7 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/about"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 About Us
               </Link>
@@ -101,7 +101,7 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/#contact"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 Contact
               </Link>
@@ -109,8 +109,8 @@ export default function Header() {
             <NavbarItem>
               <Link
                 color="foreground"
-                href="/#overview"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                href="/#feature"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 Features
               </Link>
@@ -118,8 +118,8 @@ export default function Header() {
             <NavbarItem>
               <Link
                 color="foreground"
-                href="/dashboard"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                href="/monitoring"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 Monitoring
               </Link>
@@ -131,7 +131,7 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/about"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 About Us
               </Link>
@@ -140,7 +140,7 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/#contact"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 Contact
               </Link>
@@ -148,8 +148,8 @@ export default function Header() {
             <NavbarItem>
               <Link
                 color="foreground"
-                href="/#overview"
-                className="hover:text-green-800 transition-all ease-in-out duration-250"
+                href="/#feature"
+                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
               >
                 Features
               </Link>
@@ -183,7 +183,7 @@ export default function Header() {
                     <div className="font-semibold">
                       {user ? user.displayName : ""}
                     </div>
-                    <div className="font-medium text-xs text-green-800">
+                    <div className="font-medium text-xs text-emerald-500">
                       {user ? user.email : ""}
                     </div>
                   </div>
@@ -211,7 +211,7 @@ export default function Header() {
                 <DropdownItem color="default" key="bantuan" textValue="bantuan" className="sm:hidden">
                   <Link
                     className="flex flex-row items-center gap-1"
-                    href="/#"
+                    href="/#contact"
                     color="foreground"
                   >
                     <HelpIcon color="action" />
@@ -220,13 +220,13 @@ export default function Header() {
                 </DropdownItem>
                 <DropdownItem
                   color="default"
-                  key="overview"
-                  textValue="overview"
+                  key="feature"
+                  textValue="feature"
                   className="sm:hidden"
                 >
                   <Link
                     className="flex flex-row items-center gap-1"
-                    href="/#overview"
+                    href="/#feature"
                     color="foreground"
                   >
                     <CategoryIcon color="action" />
@@ -235,13 +235,13 @@ export default function Header() {
                 </DropdownItem>
                 <DropdownItem
                   color="default"
-                  key="dashboard"
-                  textValue="Dashboard"
+                  key="monitoring"
+                  textValue="Monitoring"
                   className="sm:hidden"
                 >
                   <Link
                     className="flex flex-row items-center gap-1"
-                    href="/dashboard"
+                    href="/monitoring"
                     color="foreground"
                   >
                     <DashboardIcon color="action" />
@@ -285,8 +285,8 @@ export default function Header() {
                 <DropdownMenu aria-label="Profile Actions" variant="flat">
                   <DropdownItem
                     color="default"
-                    key="beranda"
-                    textValue="beranda"
+                    key="home"
+                    textValue="home"
                   >
                     <Link
                       className="flex flex-row items-center"
@@ -310,7 +310,7 @@ export default function Header() {
                 <DropdownItem color="default" key="about" textValue="about" className="sm:hidden">
                     <Link
                       className="flex flex-row items-center gap-1"
-                      href="/about"
+                      href="/#contact"
                       color="foreground"
                     >
                       <ArticleIcon color="action" />
@@ -319,13 +319,13 @@ export default function Header() {
                   </DropdownItem>
                   <DropdownItem
                     color="default"
-                    key="overview"
-                    textValue="overview"
+                    key="feature"
+                    textValue="feature"
                     className="sm:hidden"
                   >
                     <Link
                       className="flex flex-row items-center gap-1"
-                      href="/#overview"
+                      href="/#feature"
                       color="foreground"
                     >
                       <CategoryIcon color="action" />

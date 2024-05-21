@@ -29,7 +29,7 @@ export default function GalleryInstagram() {
           throw new Error("Failed to fetch data");
         }
         const data = await response.json();
-        setPosts(data.data);
+        setPosts(data.data.slice(0, 12));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -82,7 +82,7 @@ export default function GalleryInstagram() {
 
   return (
     <>
-      <div className="max-w-screen-xl mx-auto gap-3 flex flex-wrap justify-center">
+      <div className="max-w-screen-xl mx-auto gap-3 grid grid-cols-2 md:grid-cols-6   justify-center">
         {posts.map(
           (post: {
             media_url: string | undefined;
@@ -118,6 +118,17 @@ export default function GalleryInstagram() {
             </div>
           )
         )}
+      </div>
+      <div className="text-center my-6">
+        <Button
+          as="a"
+          href="https://instagram.com/hydrohealth.project"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-emerald-500 hover:text-emerald-400 bg-[#cceeb9]"
+        >
+          Lihat lebih banyak di Instagram ⇾
+        </Button>
       </div>
       <Modal
         isOpen={isModalOpen}

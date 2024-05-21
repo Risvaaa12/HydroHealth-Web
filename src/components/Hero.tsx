@@ -17,7 +17,7 @@ export default function Hero() {
 
   
   return (
-    <div className="grid grid-cols-1 gap-8 px-4 py-12 md:grid-cols-2 lg:grid-cols-3 auto-fit">
+    <div className="grid grid-cols-1 gap-8 px-4 py-16 md:grid-cols-2 lg:grid-cols-3 auto-fit">
       <div className="ml-6 lg:ml-16 ">
         <h1 className="text-3xl lg:-ml-2 font-bold lg:text-5xl">Collaboration</h1>
         <div className="flex p-4 ml-4 pl-0 lg:pl-6">
@@ -63,7 +63,7 @@ export default function Hero() {
         </p>
           <button className=" bg-[#c2efa8] px-8 py-3 font-bold text-center rounded hover:opacity-70">
           <Link 
-            href="/feature"
+            href="/#feature"
             rel="noopener" >
           </Link>
               Overview

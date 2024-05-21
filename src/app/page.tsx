@@ -9,15 +9,15 @@ import Contact from "@/components/Contact";
 export default function LandingPage() {
   return (
     <main className="flex flex-col justify-center items-center min-h-screen pb-16">
-      <div id="">
+      <div className="mt-8">
         <Hero />
       </div>
-      {/* <div id="feature">
+      <div id="feature">
         <Features />
       </div>
       <div id="contact">
         <Contact />
-      </div> */}
+      </div>
     </main>
   );
 }

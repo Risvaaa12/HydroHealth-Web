@@ -1,86 +1,84 @@
 import { Button, Skeleton, Stack } from "@mui/material";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import { Input, Textarea } from "@nextui-org/react";
+import { Image, } from "@nextui-org/react"; 
+import FTKxDago from "../assets/images/components/FTKxDago.png";
 
-export default function Hero() {
+export default function Contact() {
   return (
-    <div>
-      <div className="pt-16 p-4 grid grid-cols-1 grid-rows-2 gap-4 sm:grid-cols-2 sm:grid-rows-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 xl:grid-cols-2 xl:grid-rows-1 justify-center items-center max-w-screen-xl">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2 justify-center items-center max-w-screen-xl">
-            <div>
-              <p className="font-bold text-center text-emerald-600">Kontak</p>
-            </div>
-            <div>
-              <p className="font-bold text-3xl text-center">
-                Informasi Lainnya? Hubungi Kami
-              </p>
-            </div>
-            <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 md:gap-2 lg:gap-2 xl:gap-2">
-              <a
-                rel="noopener noreferrer"
-                href="https://instagram.com/nextgen.hydroponics"
-                target="_blank"
-                title="Instagram"
-                className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
-              >
-                <Button
-                  className="lowercase text-xs sm:text-sm"
-                  variant="outlined"
-                  color="info"
-                  startIcon={<InstagramIcon />}
-                >
-                  @nextgen.hydroponics
-                </Button>
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="mailto:research.nextgenhydroponics@gmail.com"
-                target="_blank"
-                title="Email"
-                className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
-              >
-                <Button
-                  className="lowercase text-xs sm:text-sm"
-                  variant="outlined"
-                  color="info"
-                  startIcon={<MailOutlineIcon />}
-                >
-                  research.nextgenhydroponics@gmail.com
-                </Button>
-              </a>
-            </div>
-            <div>
-              <p className="text-center text-sm sm:text-base md:text-base lg:text-base xl:text-base pt-3">
-                Atau Anda dapat mengisi form di bawah ini.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 w-full rounded-lg sm:w-4/5 md:w-4/5 lg:w-4/5 xl:w-4/5">
-              <Input isRequired variant="faded" type="text" label="Nama" />
-              <Input isRequired variant="faded" type="email" label="Email" />
-              <Textarea
-                isRequired
-                label="Pesan"
-                variant="faded"
-                classNames={{
-                  input: "resize-y min-h-[64px]",
-                }}
+    <div className="mt-16 px-8 shadow-xl shadow-emerald-200 rounded-xl" id="contact">
+        <div className="text-center">
+            <h1 className="text-2xl font-bold lg:text-4xl">Contact</h1>
+            <p className="text-tiny sm:text-base">Get in touch. Fill in the form to start a conversation with us</p>
+        </div>
+        <div className="pt-8 sm:pt-2 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:grid-rows-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-2 rounded-md xl:grid-cols-2 xl:grid-rows-1 justify-center items-center max-w-screen-xl ">
+          <div className="w-full px-4 mb-4 sm:col-span-1 sm:pt-8">
+              <div className="flex items-center justify-center">
+                  <div className="mx-auto w-full sm:max-w-xl">
+                      <form action="https://formbold.com/s/3Ggqa" method="POST">
+                          <div className="mb-5">
+                              <label htmlFor="name" className="block mb-3 text-base font-medium text-emerald-500">
+                                  Full Name
+                              </label>
+                              <input
+                                  type="text"
+                                  name="name"
+                                  id="name"
+                                  placeholder="Full Name"
+                                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-8 text-base font-medium text-gray-700 outline-none focus:border-emerald-400 focus:shadow-md"
+                              />
+                          </div>
+                          <div className="mb-5">
+                              <label htmlFor="email" className="block mb-3 text-base font-medium text-emerald-500">
+                                  Email Address
+                              </label>
+                              <input
+                                  type="email"
+                                  name="email"
+                                  id="email"
+                                  placeholder="example@domain.com"
+                                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-8 text-base font-medium text-gray-700 outline-none focus:border-emerald-400 focus:shadow-md"
+                              />
+                          </div>
+                          <div className="mb-5">
+                              <label htmlFor="subject" className="block mb-3 text-base font-medium text-emerald-500">
+                                  Subject
+                              </label>
+                              <input
+                                  type="text"
+                                  name="subject"
+                                  id="subject"
+                                  placeholder="Enter your subject"
+                                  className="w-full rounded-md border border-gray-300 bg-white py-2 px-8 text-base font-medium text-gray-700 outline-none focus:border-emerald-400 focus:shadow-md"
+                              />
+                          </div>
+                          <div className="mb-5">
+                              <label htmlFor="message" className="block mb-3 text-base font-medium text-emerald-500">
+                                  Message
+                              </label>
+                              <textarea
+                                  rows={4}
+                                  name="message"
+                                  id="message"
+                                  placeholder="Type your message"
+                                  className="w-full resize-none rounded-md border border-gray-300 bg-white py-2 px-8 text-base font-medium text-gray-700 outline-none focus:border-emerald-400 focus:shadow-md"
+                              ></textarea>
+                          </div>
+                          <div>
+                              <button className="hover:shadow-lg rounded-md bg-[#c2efa8] py-2 px-8 text-base font-semibold text-black outline-none">
+                                  Submit
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div className="w-full  hidden sm:flex  sm:col-span-1">
+            <Image
+                className="transform hover:scale-105 transition-transform-opacity shadow-xl"
+                alt="Dago"
+                src={FTKxDago.src}
               />
-              <Button color="info" variant="contained" className="rounded-lg">
-                Kirim
-              </Button>
-            </div>
           </div>
         </div>
-        {/* <iframe
-          width="100%"
-          height="100%"
-          title="map"
-          className="rounded-lg"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.6861692693933!2d115.13055157575472!3d-8.133397481429773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd191df23585063%3A0xb4203c0eda012672!2sUndiksha%20Jinengdalem!5e0!3m2!1sid!2sid!4v1715692412864!5m2!1sid!2sid"
-        ></iframe> */}
-      </div>
     </div>
   );
 }

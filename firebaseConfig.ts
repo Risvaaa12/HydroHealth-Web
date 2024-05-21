@@ -6,15 +6,14 @@ import { getFirestore } from "firebase/firestore";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-
-  apiKey: "AIzaSyA2CcIfOGZ9buRrhjGbU6OzpfWtABeiO84",
-  authDomain: "hydrohealth-project.firebaseapp.com",
-  projectId: "hydrohealth-project",
-  storageBucket: "hydrohealth-project.appspot.com",
-  messagingSenderId: "956354319325",
-  appId: "1:956354319325:web:a144be4c942cc7a092dc34",
-  measurementId: "G-4E63JLT05Z",
-  databaseURL: "https://hydrohealth-project-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  apiKey: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_APIKEY}`,
+  authDomain: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_AUTHDOMAIN}`,
+  projectId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_PROJECTID}`,
+  storageBucket: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_STORAGEBUCKET}`,
+  messagingSenderId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_MESSAGINGSENDERID}`,
+  appId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_APPID}`,
+  measurementId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_MEASUREMENTID}`,
+  databaseURL: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_DATABASEURL}`,
 };
 
 const app = initializeApp(firebaseConfig);

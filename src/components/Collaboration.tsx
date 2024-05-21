@@ -21,6 +21,7 @@ export default function Collaboration() {
           <div className="flex flex-col sm:flex-col-2 justify-center items-center gap-4">
             <div>
               <h1 className="text-2xl font-bold text-center lg:text-4xl">Collaboration</h1>
+              <p>Kerjasama Dengan Industri!</p>
             </div>
             <div className="mt-2 flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-6">
         <div className="flex flex-row justify-center items-center gap-4">
