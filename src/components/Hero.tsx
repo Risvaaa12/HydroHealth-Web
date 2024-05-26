@@ -15,7 +15,6 @@ export default function Hero() {
     setClick(!isClick);
   };
 
-  
   return (
     <div className="grid grid-cols-1 gap-8 px-4 py-16 md:grid-cols-2 lg:grid-cols-3 auto-fit">
       <div className="ml-6 lg:ml-16 ">
@@ -33,12 +32,12 @@ export default function Hero() {
             />
         </div>
         <p className="h-auto text-xs text-justify md:text-sm lg:text-base w-80">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
           <Link 
               href="/about"
               rel="noopener" 
               className="p-4 text-xs text-blue-500 underline hover:opacity-60 ">
-              Selengkapnya ⇾
+              Selengkapnya &#8594;
           </Link> 
         </p>
       </div>
@@ -53,12 +52,12 @@ export default function Hero() {
         <h1 className="text-4xl font-bold lg:text-5xl">About</h1>
         <h1 className="text-3xl font-bold lg:text-4xl">Us</h1>
         <p className="h-auto pb-6 text-xs text-justify md:text-sm lg:text-base w-80">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.  
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.  
         <Link 
             href="/about"
             rel="noopener" 
             className="p-4 text-xs text-blue-500 underline hover:opacity-60 ">
-            Selengkapnya ⇾
+            Selengkapnya &#8594;
         </Link>
         </p>
           <button className=" bg-[#c2efa8] px-8 py-3 font-bold text-center rounded hover:opacity-70">

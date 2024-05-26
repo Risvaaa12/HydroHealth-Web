@@ -23,7 +23,7 @@ function Footer() {
                 HydroHealth Project
               </span>
               <p className="text-tiny sm:text-lg text-center md:text-sm lg:text-sm xl:text-sm">
-                "Stay Healthy. All day, every day."
+                &quot;Stay Healthy. All day, every day.&quot;
               </p>
               <div className="text-center">
                 <ul className="flex justify-center space-x-4">
@@ -31,7 +31,7 @@ function Footer() {
                     <Link
                       rel="noopener noreferrer"
                       href="/about"
-                      className="hover:text-emerald-400  transition-all ease-in-out"
+                      className="hover:text-emerald-400 transition-all ease-in-out"
                     >
                       About
                     </Link>
@@ -68,50 +68,50 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 text-sm gap-x-3 pt-4 gap-y-8 lg:w-2/3 sm:grid-cols-3 p-4 sm:p-0 ">
+        <div className="grid grid-cols-1 text-sm gap-x-3 pt-4 gap-y-8 lg:w-2/3 sm:grid-cols-3 p-4 sm:p-0">
           <div className="space-y-3">
-            <h3 className="tracki  font-bold  text-emerald-500">Keep In Touch!</h3>
-                <div className="flex flex-col gap-1">
-                  <a
-                    rel="noopener noreferrer"
-                    href="/"
-                    target="_blank"
-                    title="playStore"
-                    className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
-                  >
-                    <ShopIcon />
-                    <p className="pl-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-sm">
-                      hydrohealth.mobile.app
-                    </p>
-                  </a>
-                  <a
-                    rel="noopener noreferrer"
-                    href="https://instagram.com/hydrohealth.project"
-                    target="_blank"
-                    title="Instagram"
-                    className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
-                  >
-                    <InstagramIcon />
-                    <p className="pl-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-sm">
-                      @hydrohealth.project
-                    </p>
-                  </a>
-                  <a
-                    rel="noopener noreferrer"
-                    href="mailto:hydrohealth.team@gmail.com"
-                    target="_blank"
-                    title="Email"
-                    className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
-                  >
-                    <MailOutlineIcon />
-                    <p className="pl-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-sm break-all">
-                      hydrohealth.team@gmail.com
-                    </p>
-                  </a>
-                </div>
+            <h3 className="tracki font-bold text-emerald-500">Keep In Touch!</h3>
+            <div className="flex flex-col gap-1">
+              <a
+                rel="noopener noreferrer"
+                href="/"
+                target="_blank"
+                title="playStore"
+                className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
+              >
+                <ShopIcon />
+                <p className="pl-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-sm">
+                  hydrohealth.mobile.app
+                </p>
+              </a>
+              <a
+                rel="noopener noreferrer"
+                href="https://instagram.com/hydrohealth.project"
+                target="_blank"
+                title="Instagram"
+                className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
+              >
+                <InstagramIcon />
+                <p className="pl-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-sm">
+                  @hydrohealth.project
+                </p>
+              </a>
+              <a
+                rel="noopener noreferrer"
+                href="mailto:hydrohealth.team@gmail.com"
+                target="_blank"
+                title="Email"
+                className="flex items-center py-0.5 hover:text-emerald-400 transition-all ease-in-out"
+              >
+                <MailOutlineIcon />
+                <p className="pl-2 text-sm sm:text-sm md:text-sm lg:text-sm xl:text-sm break-all">
+                  hydrohealth.team@gmail.com
+                </p>
+              </a>
+            </div>
           </div>
           <div className="space-y-3">
-            <h3 className="tracki  font-bold text-emerald-500 mb-3">
+            <h3 className="tracki font-bold text-emerald-500 mb-3">
               Project Address
             </h3>
             <a
@@ -124,7 +124,7 @@ function Footer() {
             </a>
           </div>
           <div className="space-y-3">
-            <h3 className="tracki  font-bold text-emerald-500 mb-3">
+            <h3 className="tracki font-bold text-emerald-500 mb-3">
               Open in Google Map
             </h3>
             <iframe
@@ -135,7 +135,6 @@ function Footer() {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.6861692693933!2d115.13055157575472!3d-8.133397481429773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd191df23585063%3A0xb4203c0eda012672!2sUndiksha%20Jinengdalem!5e0!3m2!1sid!2sid!4v1715692412864!5m2!1sid!2sid"
             ></iframe>
           </div>
-          
         </div>
       </div>
       <div className="py-4 text-[11px] text-center text-emerald-500">
@@ -144,7 +143,7 @@ function Footer() {
             href="/"
             className="hover:text-emerald-400 transition-all ease-in-out"
           >
-            ©️2024 HydroHealth Project | All rights reserved
+            &copy;2024 HydroHealth Project | All rights reserved
           </a>
         </p>
       </div>
