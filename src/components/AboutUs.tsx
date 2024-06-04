@@ -7,12 +7,12 @@ import {
   
   export default function AboutUs() {
     return (
-      <div className="p-8 flex flex-col gap-8 justify-center items-center px-12 max-w-screen-xl">
+      <div className="flex flex-col gap-8 justify-center items-center max-w-screen-xl">
         <div>
             <h1 className="text-2xl font-bold text-center lg:text-4xl">About Us</h1>
             <p>Tentang Kita!</p>
         </div>
-        <div className="pt-4 p-4 grid grid-cols-1 lg:grid-cols-2 gap-2  justify-center items-center max-w-screen-xl">
+        <div className="pt-2 p-4 grid grid-cols-1 sm:grid-cols-2 gap-6  justify-center items-center max-w-screen-xl">
             <div className="flex flex-col grid-col-2  gap-2">
                 <Card isFooterBlurred radius="lg" className="border-none">
               <div className="relative overflow-hidden rounded-inherit rounded-large">

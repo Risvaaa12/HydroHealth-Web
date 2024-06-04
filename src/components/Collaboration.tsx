@@ -15,7 +15,7 @@ import FTKxDago from "@/assets/images/components/FTKxDago.png";
 
 export default function Collaboration() {
   return (
-    <div className="p-8 flex flex-col gap-8 justify-center items-center px-12 max-w-screen-xl" id="colab">
+    <div className=" flex flex-col gap-8 justify-center items-center  max-w-screen-xl" id="colab">
       <div className="pt-2 sm:pt-8 p-4 grid grid-cols-1 gap-2 sm:grid-cols-2 justify-center items-center max-w-screen-xl">
         <div>
           <div className="flex flex-col sm:flex-col-2 justify-center items-center gap-4">
@@ -155,7 +155,7 @@ export default function Collaboration() {
             </p>
           </div>
         </div>
-        <div className="flex flex-col lg:mx-12 gap-2">
+        <div className="flex flex-col mx-2 lg:mx-12 gap-2">
           <Card isFooterBlurred radius="lg" className="border-none">
             <div className="relative overflow-hidden rounded-inherit rounded-large">
               <Image

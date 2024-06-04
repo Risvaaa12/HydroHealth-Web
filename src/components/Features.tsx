@@ -29,12 +29,12 @@ const Feature9 =
 
 export default function Features() {
   return (
-    <div className="mt-12 sm:mt-24 ">
+    <div className="flex flex-col gap-8 justify-center items-center max-w-screen-xl">
       <div className="flex flex-col justify-center items-center gap-1 ">
         <h1 className="font-bold text-2xl lg:text-4xl">Features</h1>
         <p>Produk Yang Kami Kerjakan!</p>
       </div>
-      <div className="pt-2 sm:pt-8 p-4 grid grid-cols-1 grid-rows-2 gap-4 sm:grid-cols-2 sm:grid-rows-1 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 xl:grid-cols-2 xl:grid-rows-1 justify-center items-center max-w-screen-xl">
+      <div className="pt-2 p-4 grid grid-cols-1 sm:grid-cols-2 gap-6  justify-center items-center max-w-screen-xl">
         <div className="flex flex-col">
           <Card isFooterBlurred radius="lg" className="border-none">
             <div className="relative overflow-hidden rounded-inherit rounded-large">
