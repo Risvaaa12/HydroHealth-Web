@@ -114,8 +114,8 @@ export default function LineChartSuhuUdara() {
   }
 
   return (
-    <div className="outline p-4 outline-green-200 rounded-lg h-full w-full">
-      <canvas ref={chartRef} />
+    <div className="outline p-2 outline-green-200 rounded-lg h-full w-full">
+      <canvas ref={chartRef}  className="h-[45%] sm:h-full" />
       <div className="flex flex-row justify-center items-center pt-1">
         <Dropdown backdrop="opaque" radius="sm" className="p-1">
           <DropdownTrigger>

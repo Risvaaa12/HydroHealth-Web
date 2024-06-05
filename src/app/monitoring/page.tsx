@@ -22,11 +22,11 @@ export default function Monitoring() {
   const user = useAuth();
 
   return (
-    <main className="flex flex-col justify-center mx-2 items-center gap-3 pb-8">
+    <main className="flex flex-col justify-center mx-2 items-center gap-3 pb-6">
       {user ? (
         <>
-          <div className="flex flex-col gap-8 justify-center items-center px-4 max-w-screen-xl">
-            <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-6  justify-center items-center max-w-screen-xl">
+          <div className="flex flex-col pb-4 gap-8 justify-center items-center px-4 max-w-screen-xl">
+            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-6  justify-center items-center max-w-screen-xl">
               <SmartCameraControl/>
               <div>
               <p className="text-x sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl font-bold pb-2">
@@ -36,19 +36,23 @@ export default function Monitoring() {
               </div>  
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 pb-4 sm:grid-cols-4 gap-2 sm:gap-8">
             <NutritionControl />
             <PhControl />
             <div className="col-span-2">
               <SuhuControl />
             </div>
           </div>
-          <div className="grid grid-cols-1 px-2 sm:grid-cols-5 mx-2 gap-4 mb-4">
-            <PompaControl />
-            <PengadukControl />
-            <PelindungControl />
-            <PestisidaControl />
-            <PupukDaunControl />
+          <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-4">
+            <div className="grid grid-cols-2 gap-1 sm:grid sm:grid-cols-4 sm:grid-rows-1 sm:gap-2 justify-center">
+              <PompaControl />
+              <PengadukControl />
+              <PelindungControl />
+              <PestisidaControl />
+            </div>
+            <div className="flex flex-col justify-center">
+              <PupukDaunControl />
+            </div>
           </div>
         </>
       ) : (

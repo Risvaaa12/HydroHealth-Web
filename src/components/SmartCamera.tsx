@@ -18,7 +18,7 @@ export default function SmartCamera() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
-      <div className="flex flex-col justify-center w-full h-full sm:h-3/4">
+      <div className="flex flex-col justify-center w-full h-full sm:h-4/5">
         <Card radius="lg" className="border-none">
         <div className="relative overflow-hidden rounded-inherit rounded-large">
           <Image
