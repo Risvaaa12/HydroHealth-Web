@@ -49,10 +49,10 @@ export default function Monitoring() {
               </Button>
             </div> */}
           </div>
-          <div className="grid grid-cols-2 pb-4 sm:grid-cols-4 gap-2 sm:gap-8">
+          <div className="grid grid-cols-1 pb-4 sm:grid-cols-4 gap-2 sm:gap-8 mx-4 sm:mx-12">
             <NutritionControl />
             <PhControl />
-            <div className="col-span-2">
+            <div className="col-span-1 sm:col-span-2">
               <SuhuControl />
             </div>
           </div>
