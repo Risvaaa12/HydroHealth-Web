@@ -28,7 +28,7 @@ export default function PengadukControl () {
     }
 
     return (
-        <div className="bg-green-200 m-2 w-40 sm:w-60 py-2 rounded-lg">
+        <div className="bg-green-200 m-2 w-50 sm:w-60 py-2 rounded-lg">
             <h1 className="font-bold text-center">Pengaduk Larutan</h1>
             <div className="flex flex-row gap-6  bg-green-200 p-2 rounded-lg justify-center items-center">
             <div className="flex flex-col justify-center items-center gap-2 text-sm">

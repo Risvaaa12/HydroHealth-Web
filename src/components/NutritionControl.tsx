@@ -28,19 +28,25 @@ export default function NutritionControl() {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const [chartData, setChartData] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
-
-  const generateRandomValue = (max: number) => Math.floor(Math.random() * max);
-
-  const nutrisiMax = 1000;
-
   const [nutrisiValue, setNutrisiValue] = useState<number>(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setNutrisiValue(generateRandomValue(nutrisiMax));
-    }, 2500);
+    const dataRef = ref(database, "Monitoring/Nutrisi");
+    onValue(dataRef, (snapshot) => {
+      const value = snapshot.val();
+      setNutrisiValue(value);
+    });
+  }, []);
 
-    return () => clearInterval(interval);
+  useEffect(() => {
+    const dataRef = ref(database, "Monitoring");
+    onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data.Nutrisi];
+      const days = ["Today"]; 
+      setChartData(values);
+      setLabels(days);
+    });
   }, []);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -49,20 +55,10 @@ export default function NutritionControl() {
 
   function handleUpdateClick() {
     setNutrisiValue(tempNutrisiValue);
+    onOpenChange(); 
   }
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  useEffect(() => {
-    const dataRef = ref(database, "sensorTDS");
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val() as Record<string, { value: number; day: string }>;
-      const values = Object.values(data).map((item) => item.value);
-      const days = Object.values(data).map((item) => item.day);
-      setChartData(values);
-      setLabels(days);
-    });
-  }, []);
 
   useEffect(() => {
     if (isOpen && chartRef.current) {
@@ -72,11 +68,11 @@ export default function NutritionControl() {
         new Chart(context, {
           type: "line",
           data: {
-            labels: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+            labels,
             datasets: [
               {
                 label: "TDS Sensor (PPM) / Day",
-                data: [1333, 1200, 1250, 1400, 1250, 1000, 1290],
+                data: chartData,
                 backgroundColor: ["rgba(255, 99, 132, 0.2)"],
                 borderColor: ["rgba(255, 99, 132, 1)"],
                 borderWidth: 1,
@@ -120,123 +116,82 @@ export default function NutritionControl() {
       ];
       const worksheet = XLSX.utils.aoa_to_sheet(data);
       const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "SheetSuhuAirHidroponik"
-      );
+      XLSX.utils.book_append_sheet(workbook, worksheet, "SheetSuhuAirHidroponik");
       XLSX.writeFile(workbook, "LineChartSuhuAirHidroponik.xlsx");
     }
   }
 
   return (
     <>
-      <div
-        id="nutrisi"
-        className="bg-green-200 p-4 rounded-xl text-center  flex flex-col justify-center items-center"
-      >
+      <div id="nutrisi" className="bg-green-200 p-4 -pb-8 rounded-xl text-center  flex flex-col justify-center items-center">
         <p className="font-semibold  text-md">Monitoring dan Kontrol Nutrisi</p>
-        <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full ">
-        <Gauge
-          startAngle={-110}
-          endAngle={110}
-          width={200}
-          height={200}
-          value={nutrisiValue}
-          valueMin={0}
-          valueMax={1000}
-          sx={(theme) => ({
-            [`& .${gaugeClasses.valueArc}`]: {
-              fill: "#52b202",
-            },
-            [`& .${gaugeClasses.valueText}`]: {
-              transform: "translate(0px, 0px)",
-            },
-          })}
-          text={({ value, valueMax }) => `${value} / ${valueMax}`}
-        />
+        <p className="text-sm ">Kebutuhan Nutrisi : {nutrisiValue} PPM</p>
+        <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full">
+          <Gauge
+            startAngle={-110}
+            endAngle={110}
+            width={200}
+            height={200}
+            value={nutrisiValue}
+            valueMin={0}
+            valueMax={2000}
+            sx={(theme) => ({
+              [`& .${gaugeClasses.valueArc}`]: {
+                fill: "#52b202",
+              },
+              [`& .${gaugeClasses.valueText}`]: {
+                transform: "translate(0px, 0px)",
+              },
+            })}
+            text={({ value, valueMax }) => `${value} / ${valueMax}`}
+          />
         </div>
         <div className="">
           <p className="text-sm pb-2">Nutrisi dikendalikan secara otomatis</p>
-          <Button onPress={onOpen} size="sm"  variant="faded" color="secondary">
+          <Button onPress={onOpen} size="sm" variant="faded" color="secondary">
             Show Details
           </Button>
         </div>
       </div>
-      <Modal
-        isOpen={isOpen}
-        placement="center"
-        backdrop="blur"
-        onOpenChange={onOpenChange}
-        size="2xl"
-      >
+      <Modal isOpen={isOpen} placement="center" backdrop="blur" onOpenChange={onOpenChange} size="2xl">
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                History Nutrisi
-              </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">History Nutrisi</ModalHeader>
               <ModalBody className="w-full">
                 <div className="flex flex-col justify-center items-center text-sm">
-                  <p className="text-base font-bold pb-2">
-                    Atur Jumlah Nutrisi Yang Dibutuhkan
-                  </p>
-                  <p className="text-sm pb-2 ">
-                    Jumlah Nutrisi Yang Dibutuhkan Sekarang : {nutrisiValue}
-                  </p>
+                  <p className="text-base font-bold pb-2">Atur Jumlah Nutrisi Yang Dibutuhkan</p>
+                  <p className="text-sm pb-2">Sisa Larutan Nutrisi AB Mix : 3 Liter</p>
                 </div>
                 <div className="flex flex-row justify-center items-center gap-6 text-sm">
-                  <Input
-                    color="primary"
-                    type="number"
-                    label="Jumlah Nutrisi"
-                    value={tempNutrisiValue.toString()}
-                    onChange={handleInputChange}
-                    className="w-1/2"
-                  />
-                  <Button variant="flat" color="primary" onPress={handleUpdateClick}>
-                    Update
-                  </Button>
+                  <Input color="primary" type="number" label="Jumlah Nutrisi" value={tempNutrisiValue.toString()} onChange={handleInputChange} className="w-1/2" />
+                  <Button variant="flat" color="primary" onPress={handleUpdateClick}>Update</Button>
                 </div>
                 <div style={{ padding: "16px" }} className="flex flex-col">
                   <div>
                     <canvas ref={chartRef} />
                   </div>
                   <div className="mt-6 flex justify-center items-center w-/12">
-                  <Dropdown backdrop="opaque" radius="sm" className="p-2">
-                    <DropdownTrigger>
-                      <Button variant="flat" color="success" size="sm" radius="sm">
-                        Download chart
-                      </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu aria-label="Actions">
-                      <DropdownItem
-                        onClick={handleDownloadPNG}
-                        startContent={<ImageOutlinedIcon fontSize="small" />}
-                        key="png"
-                        color="default"
-                        variant="flat"
-                      >
-                        Image (.png)
-                      </DropdownItem>
-                      <DropdownItem
-                        onClick={handleDownloadExcel}
-                        startContent={<InsertDriveFileIcon fontSize="small" />}
-                        key="excel"
-                        color="default"
-                        variant="flat"
-                      >
-                        Excel (.xlsx)
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>  
-                  </div> 
+                    <Dropdown backdrop="opaque" radius="sm" className="p-2">
+                      <DropdownTrigger>
+                        <Button variant="flat" color="success" size="sm" radius="sm">
+                          Download chart
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu aria-label="Actions">
+                        <DropdownItem onClick={handleDownloadPNG} startContent={<ImageOutlinedIcon fontSize="small" />} key="png" color="default" variant="flat">
+                          Image (.png)
+                        </DropdownItem>
+                        <DropdownItem onClick={handleDownloadExcel} startContent={<InsertDriveFileIcon fontSize="small" />} key="excel" color="default" variant="flat">
+                          Excel (.xlsx)
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  Tutup
-                </Button>
+                <Button color="danger" variant="flat" onPress={onClose}>Tutup</Button>
               </ModalFooter>
             </>
           )}

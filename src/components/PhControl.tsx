@@ -24,50 +24,29 @@ import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 export default function PhControl() {
-  const [tempNutrisiValue, setTempNutrisiValue] = useState<number>(0);
+  const [temppHValue, setTemppHValue] = useState<number>(0);
   const chartRef = useRef<HTMLCanvasElement>(null);
   const [chartData, setChartData] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
-
-  const generateRandomValue = (max: number) => Math.floor(Math.random() * max);
-
-  const nutrisiMax = 1000;
-  const phAirMax = 10;
-
-  const [nutrisiValue, setNutrisiValue] = useState(
-    generateRandomValue(nutrisiMax)
-  );
-  const [phAirValue, setPhAirValue] = useState(generateRandomValue(phAirMax));
+  const [pHValue, setpHValue] = useState(0);
+  const [phAirValue, setPhAirValue] = useState(0);
+  const [pHDown, setPHDown] = useState(0);
+  const [pHUp, setPHUp] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setNutrisiValue(generateRandomValue(nutrisiMax));
-      setPhAirValue(generateRandomValue(phAirMax));
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTempNutrisiValue(Number(e.target.value));
-  }
-
-  function handleUpdateClick() {
-    setNutrisiValue(tempNutrisiValue);
-  }
-
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  useEffect(() => {
-    const dataRef = ref(database, "sensorTDS");
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val() as Record<string, { value: number; day: string }>;
-      const values = Object.values(data).map((item) => item.value);
-      const days = Object.values(data).map((item) => item.day);
-      setChartData(values);
-      setLabels(days);
+    const dbRef = ref(database, 'sensors/pH');
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      setpHValue(data.current);
+      setPhAirValue(data.current);
+      setPHDown(data.pHDown);
+      setPHUp(data.pHUp);
+      setChartData(Object.values(data.history));
+      setLabels(Object.keys(data.history));
     });
   }, []);
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   useEffect(() => {
     if (isOpen && chartRef.current) {
@@ -77,11 +56,11 @@ export default function PhControl() {
         new Chart(context, {
           type: "line",
           data: {
-            labels: ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"],
+            labels: labels,
             datasets: [
               {
-                label: "TDS Sensor (PPM) / Day",
-                data: [1333, 1200, 1250, 1400, 1250, 1000, 1290],
+                label: "AVG pH / Day",
+                data: chartData,
                 backgroundColor: ["rgba(255, 99, 132, 0.2)"],
                 borderColor: ["rgba(255, 99, 132, 1)"],
                 borderWidth: 1,
@@ -117,7 +96,7 @@ export default function PhControl() {
     if (chartRef.current && (chartRef.current as any).chart) {
       const chart = (chartRef.current as any).chart;
       const data = [
-        ["Waktu", "Nutrisi Hidroponik (PPM)"],
+        ["Waktu", "pH Hidroponik (PPM)"],
         ...chart.data.labels.map((label: any, index: string | number) => [
           label,
           chart.data.datasets[0].data[index],
@@ -142,21 +121,21 @@ export default function PhControl() {
       >
         <p className="font-semibold  text-md">Monitoring dan Kontrol pH Air</p>
         <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full ">
-        <Gauge
+          <Gauge
             startAngle={-110}
             endAngle={110}
             width={200}
             height={200}
             value={phAirValue}
             valueMin={0}
-            valueMax={10}
+            valueMax={14}
             sx={(theme) => ({
-            [`& .${gaugeClasses.valueText}`]: {
+              [`& .${gaugeClasses.valueText}`]: {
                 transform: "translate(0px, 0px)",
-            },
+              },
             })}
             text={({ value, valueMax }) => `${value} / ${valueMax}`}
-        />
+          />
         </div>
         <div>
           <p className="text-sm pb-2">pH Dikendalikan Secara Otomatis</p>
@@ -176,63 +155,53 @@ export default function PhControl() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                History Nutrisi
+                History pH
               </ModalHeader>
               <ModalBody className="w-full">
                 <div className="flex flex-col justify-center items-center text-sm">
                   <p className="text-base font-bold pb-2">
-                    Atur Jumlah Nutrisi Yang Dibutuhkan
+                    Jumlah pH up dan Down pada Kontainer
                   </p>
-                  <p className="text-sm pb-2 ">
-                    Jumlah Nutrisi Yang Dibutuhkan Sekarang : {nutrisiValue}
+                  <p className="text-base pb-2">
+                    Sisa Larutan pH Up : {pHUp} Liter
                   </p>
-                </div>
-                <div className="flex flex-row justify-center items-center gap-6 text-sm">
-                  <Input
-                    color="primary"
-                    type="number"
-                    label="Jumlah Nutrisi"
-                    value={tempNutrisiValue.toString()}
-                    onChange={handleInputChange}
-                    className="w-1/2"
-                  />
-                  <Button variant="flat" color="primary" onPress={handleUpdateClick}>
-                    Update
-                  </Button>
+                  <p className="text-base pb-2">
+                    Sisa Larutan pH Down : {pHDown} Liter
+                  </p>
                 </div>
                 <div style={{ padding: "16px" }} className="flex flex-col">
                   <div>
                     <canvas ref={chartRef} />
                   </div>
                   <div className="mt-6 flex justify-center items-center w-/12">
-                  <Dropdown backdrop="opaque" radius="sm" className="p-2">
-                    <DropdownTrigger>
-                      <Button variant="flat" color="success" size="sm" radius="sm">
-                        Download chart
-                      </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu aria-label="Actions">
-                      <DropdownItem
-                        onClick={handleDownloadPNG}
-                        startContent={<ImageOutlinedIcon fontSize="small" />}
-                        key="png"
-                        color="default"
-                        variant="flat"
-                      >
-                        Image (.png)
-                      </DropdownItem>
-                      <DropdownItem
-                        onClick={handleDownloadExcel}
-                        startContent={<InsertDriveFileIcon fontSize="small" />}
-                        key="excel"
-                        color="default"
-                        variant="flat"
-                      >
-                        Excel (.xlsx)
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>  
-                  </div> 
+                    <Dropdown backdrop="opaque" radius="sm" className="p-2">
+                      <DropdownTrigger>
+                        <Button variant="flat" color="success" size="sm" radius="sm">
+                          Download chart
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu aria-label="Actions">
+                        <DropdownItem
+                          onClick={handleDownloadPNG}
+                          startContent={<ImageOutlinedIcon fontSize="small" />}
+                          key="png"
+                          color="default"
+                          variant="flat"
+                        >
+                          Image(.png)
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={handleDownloadExcel}
+                          startContent={<InsertDriveFileIcon fontSize="small" />}
+                          key="excel"
+                          color="default"
+                          variant="flat"
+                        >
+                          Excel (.xlsx)
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                 </div>
               </ModalBody>
               <ModalFooter>
