@@ -8,12 +8,12 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_APIKEY}`,
   authDomain: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_AUTHDOMAIN}`,
+  databaseURL: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_DATABASEURL}`,
   projectId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_PROJECTID}`,
   storageBucket: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_STORAGEBUCKET}`,
   messagingSenderId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_MESSAGINGSENDERID}`,
   appId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_APPID}`,
   measurementId: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_MEASUREMENTID}`,
-  databaseURL: `${process.env.NEXT_PUBLIC_VERCEL_FIREBASE_DATABASEURL}`,
 };
 
 const app = initializeApp(firebaseConfig);

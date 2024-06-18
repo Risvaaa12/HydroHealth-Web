@@ -24,25 +24,34 @@ import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
 export default function PhControl() {
-  const [temppHValue, setTemppHValue] = useState<number>(0);
   const chartRef = useRef<HTMLCanvasElement>(null);
   const [chartData, setChartData] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
   const [pHValue, setpHValue] = useState(0);
-  const [phAirValue, setPhAirValue] = useState(0);
   const [pHDown, setPHDown] = useState(0);
   const [pHUp, setPHUp] = useState(0);
 
   useEffect(() => {
-    const dbRef = ref(database, 'sensors/pH');
-    onValue(dbRef, (snapshot) => {
+    const pHRef = ref(database, 'Sensor/Monitoring');
+    onValue(pHRef, (snapshot) => {
       const data = snapshot.val();
-      setpHValue(data.current);
-      setPhAirValue(data.current);
-      setPHDown(data.pHDown);
-      setPHUp(data.pHUp);
-      setChartData(Object.values(data.history));
-      setLabels(Object.keys(data.history));
+      const values = [data.Ph];
+      setpHValue(values[0]);
+    });
+},[]);
+  useEffect(() => {
+    const pHRef = ref(database, 'Sensor/Monitoring');
+    onValue(pHRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data.Ph];
+      setChartData(values);
+      // setPHDown(data.pHDown || []);
+      // setPHUp(data.pHUp || []);
+      setLabels([
+        "12AM", "2AM", "4AM", "6AM", "8AM",
+        "10AM", "12PM", "2PM", "4PM",
+        "6PM", "8PM", "10PM",
+      ]);
     });
   }, []);
 
@@ -126,7 +135,7 @@ export default function PhControl() {
             endAngle={110}
             width={200}
             height={200}
-            value={phAirValue}
+            value={pHValue}
             valueMin={0}
             valueMax={14}
             sx={(theme) => ({

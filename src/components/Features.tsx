@@ -29,11 +29,11 @@ const Feature9 =
 
 export default function Features() {
   return (
-    <div className="flex flex-col gap-8 justify-center items-center max-w-screen-xl">
-      <div className="flex flex-col justify-center items-center gap-1 ">
+    <div className="flex flex-col gap-8 justify-center pb-12 pt-4 items-center max-w-screen-xl">
+      {/* <div className="flex flex-col justify-center items-center gap-1 ">
         <h1 className="font-bold text-2xl lg:text-4xl">Features</h1>
         <p>Produk Yang Kami Kerjakan!</p>
-      </div>
+      </div> */}
       <div className="pt-2 p-4 grid grid-cols-1 sm:grid-cols-2 gap-6  justify-center items-center max-w-screen-xl">
         <div className="flex flex-col">
           <Card isFooterBlurred radius="lg" className="border-none">
@@ -54,11 +54,10 @@ export default function Features() {
           </Card>
         </div>
         <div className="p-4 flex flex-col gap-2 justify-center items-center max-w-screen-xl">
-          <div>
-            <p className="text-center text-sm sm:text-base md:text-base lg:text-base xl:text-base">
-              Fitur Utama dan Unggulan dari Kami
-            </p>
-          </div>
+          <div className="flex flex-col justify-center items-center gap-1 ">
+            <h1 className="font-bold text-2xl lg:text-4xl">Features</h1>
+            <p>Produk Yang Kami Kerjakan!</p>
+        </div>
           <div className="mt-2 w-full sm:w-11/12 md:w-11/12 lg:w-11/12 xl:w-11/12 flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-6 text-sm bg-[#e6ffd7] p-2 rounded-lg">
             <Accordion isCompact>
               <AccordionItem

@@ -1,10 +1,11 @@
 import { Button, Skeleton, Stack } from "@mui/material";
 import { Image, } from "@nextui-org/react"; 
 import FTKxDago from "../assets/images/components/FTKxDago.png";
+// import { Label } from 'react';
 
 export default function Contact() {
   return (
-    <div className="mt-16 px-8 shadow-xl shadow-emerald-200 rounded-xl" id="contact">
+    <div className="mt-16 px-8" id="contact">
         <div className="text-center">
             <h1 className="text-2xl font-bold lg:text-4xl">Contact</h1>
             <p className="text-tiny sm:text-base">Get in touch. Fill in the form to start a conversation with us</p>

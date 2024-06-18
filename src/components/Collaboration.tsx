@@ -15,16 +15,16 @@ import FTKxDago from "@/assets/images/components/FTKxDago.png";
 
 export default function Collaboration() {
   return (
-    <div className=" flex flex-col gap-8 justify-center items-center  max-w-screen-xl" id="colab">
+    <div className=" flex flex-col pb-8 gap-8 justify-center items-center  max-w-screen-xl" id="colab">
       <div className="pt-2 sm:pt-8 p-4 grid grid-cols-1 gap-2 sm:grid-cols-2 justify-center items-center max-w-screen-xl">
         <div>
           <div className="flex flex-col sm:flex-col-2 justify-center items-center gap-4">
             <div>
               <h1 className="text-2xl font-bold text-center lg:text-4xl">Collaboration</h1>
-              <p>Kerjasama Dengan Industri!</p>
+              <p className="text-center">Kerjasama Dengan Industri!</p>
             </div>
-            <div className="mt-2 flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-6">
-        <div className="flex flex-row justify-center items-center gap-4">
+        <div className="mt-2 flex flex-row justify-center items-center gap-4">
+        <div className="flex flex-row justify-center items-center gap-2">
           <Popover placement="bottom" offset={10} showArrow>
             <PopoverTrigger>
               <div>
@@ -53,7 +53,7 @@ export default function Collaboration() {
               </div>
             </PopoverContent>
           </Popover>
-          <Popover placement="bottom" offset={10} showArrow>
+          {/* <Popover placement="bottom" offset={10} showArrow>
             <PopoverTrigger>
               <div>
                 <Image
@@ -80,7 +80,7 @@ export default function Collaboration() {
                 </Button>
               </div>
             </PopoverContent>
-          </Popover>
+          </Popover> */}
         </div>
         <div className="flex flex-row justify-center items-center gap-6">
           <Popover placement="bottom" offset={10} showArrow>
@@ -144,7 +144,7 @@ export default function Collaboration() {
 
           </div>
           <div>
-            <p className="text-balance text-sm mt-4 sm:text-base">
+            <p className="text-center text-sm mt-4 sm:text-base">
               Fakultas Teknik dan Kejuruan Universitas Pendidikan Ganesha melakukan
               kerja sama kolaborasi bersama dengan PT. Dago Engineering, Bandung.
               Sebagai bentuk penggunaan teknologi, MBKM ini mengusung tema Smart
@@ -155,7 +155,7 @@ export default function Collaboration() {
             </p>
           </div>
         </div>
-        <div className="flex flex-col mx-2 lg:mx-12 gap-2">
+        <div className="flex flex-col mx-4 px-4 lg:mx-8 py-4 gap-6">
           <Card isFooterBlurred radius="lg" className="border-none">
             <div className="relative overflow-hidden rounded-inherit rounded-large">
               <Image

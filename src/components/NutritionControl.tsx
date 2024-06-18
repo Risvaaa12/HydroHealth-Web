@@ -29,23 +29,29 @@ export default function NutritionControl() {
   const [chartData, setChartData] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
   const [nutrisiValue, setNutrisiValue] = useState<number>(0);
+  const [updateNutrisi, setUpdateNutrisi] = useState<number>(0);
+  
 
   useEffect(() => {
-    const dataRef = ref(database, "Monitoring/Nutrisi");
+    const dataRef = ref(database, "Sensor/Monitoring");
     onValue(dataRef, (snapshot) => {
-      const value = snapshot.val();
-      setNutrisiValue(value);
+      const data = snapshot.val();
+      const values = [data.Nutrisi];
+      setNutrisiValue(values[0]);
     });
   }, []);
 
   useEffect(() => {
-    const dataRef = ref(database, "Monitoring");
+    const dataRef = ref(database, "Sensor/Monitoring");
     onValue(dataRef, (snapshot) => {
       const data = snapshot.val();
-      const values = [data.Nutrisi];
-      const days = ["Today"]; 
+      const values = [data.Nutrisi]; 
       setChartData(values);
-      setLabels(days);
+      setLabels([
+        "12AM", "2AM", "4AM", "6AM", "8AM",
+        "10AM", "12PM", "2PM", "4PM",
+        "6PM", "8PM", "10PM",
+      ]);
     });
   }, []);
 
@@ -54,7 +60,7 @@ export default function NutritionControl() {
   }
 
   function handleUpdateClick() {
-    setNutrisiValue(tempNutrisiValue);
+    setUpdateNutrisi(tempNutrisiValue);
     onOpenChange(); 
   }
 
@@ -68,7 +74,7 @@ export default function NutritionControl() {
         new Chart(context, {
           type: "line",
           data: {
-            labels,
+            labels: labels,
             datasets: [
               {
                 label: "TDS Sensor (PPM) / Day",
@@ -125,7 +131,7 @@ export default function NutritionControl() {
     <>
       <div id="nutrisi" className="bg-green-200 p-4 -pb-8 rounded-xl text-center  flex flex-col justify-center items-center">
         <p className="font-semibold  text-md">Monitoring dan Kontrol Nutrisi</p>
-        <p className="text-sm ">Kebutuhan Nutrisi : {nutrisiValue} PPM</p>
+        <p className="text-sm ">Kebutuhan Nutrisi : {updateNutrisi} PPM</p>
         <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full">
           <Gauge
             startAngle={-110}

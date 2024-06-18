@@ -21,6 +21,9 @@ import {
   CardFooter,
 } from "@nextui-org/react";
 import HistoryTanaman from "@/components/HistoryTanaman";
+import PembuanganAirPipa from "@/components/PembuanganAirPipa";
+import SumberAir from "@/components/SumberAirControl";
+import PembuanganAirKontainer from "@/components/PembuanganAirKontainer";
 
 export default function Monitoring() {
   const user = useAuth();
@@ -38,7 +41,19 @@ export default function Monitoring() {
                 </p>
                 <p className="text-base pb-4 text-slate-700"> Tetap Jaga Kestabilan Hidroponikmu!</p>  
             </div>
-            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4  justify-center items-center w-3/4">
+            <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-4">
+              <div className="grid grid-cols-2 gap-1 sm:grid sm:grid-cols-4 sm:grid-rows-1 sm:gap-2 justify-center">
+                <PompaControl />
+                <PengadukControl />
+                <PelindungControl />
+                <PestisidaControl />
+                <PupukDaunControl />
+                <SumberAir/>
+                <PembuanganAirKontainer/>
+                <PembuanganAirPipa/>
+              </div>
+            </div>
+            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 px-4 mx-4 justify-center items-center w-full sm:w-3/4">
               <Camera1/>
               <Camera2/>
               {/* <HistoryTanaman/> */}
@@ -49,24 +64,15 @@ export default function Monitoring() {
               </Button>
             </div> */}
           </div>
-          <div className="grid grid-cols-1 pb-4 sm:grid-cols-4 gap-2 sm:gap-8 mx-4 sm:mx-12">
+          
+          <div className="grid grid-cols-1 pb-12 sm:grid-cols-4 px-4 gap-4 sm:gap-8  sm:w-[90%] w-full  mx-4 sm:mx-12">
             <NutritionControl />
             <PhControl />
             <div className="col-span-1 sm:col-span-2">
               <SuhuControl />
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center pb-6 gap-4">
-            <div className="grid grid-cols-2 gap-1 sm:grid sm:grid-cols-4 sm:grid-rows-1 sm:gap-2 justify-center">
-              <PompaControl />
-              <PengadukControl />
-              <PelindungControl />
-              <PestisidaControl />
-            </div>
-            <div className="flex flex-col justify-center">
-              <PupukDaunControl />
-            </div>
-          </div>
+          
         </>
       ) : (
         <div className="flex flex-col min-h-screen -mt-16 p-4 justify-center items-center gap-2">

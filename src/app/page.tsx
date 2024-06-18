@@ -5,6 +5,8 @@ import Collaboration from "@/components/Collaboration";
 import Team from "@/components/Team";
 import Features from "@/components/Features";
 import Contact from "@/components/Contact";
+import GalleryInstagram from "@/components/GalleryInstagram";
+
 
 export default function LandingPage() {
   return (
@@ -14,6 +16,9 @@ export default function LandingPage() {
       </div>
       <div id="feature">
         <Features />
+      </div>
+      <div>
+        <GalleryInstagram/>
       </div>
       <div id="contact">
         <Contact />
