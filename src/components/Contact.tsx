@@ -1,6 +1,6 @@
 import { Button, Skeleton, Stack } from "@mui/material";
 import { Image, } from "@nextui-org/react"; 
-import FTKxDago from "../assets/images/components/FTKxDago.png";
+import contact from "../assets/images/components/Singing Contract.gif";
 // import { Label } from 'react';
 
 export default function Contact() {
@@ -14,7 +14,7 @@ export default function Contact() {
           <div className="w-full px-4 mb-4 sm:col-span-1 sm:pt-8">
               <div className="flex items-center justify-center">
                   <div className="mx-auto w-full sm:max-w-xl">
-                      <form action="https://formbold.com/s/3Ggqa" method="POST">
+                      <form action="https://formbold.com/s/obpRa" method="POST">
                           <div className="mb-5">
                               <label htmlFor="name" className="block mb-3 text-base font-medium text-emerald-500">
                                   Full Name
@@ -74,9 +74,10 @@ export default function Contact() {
           </div>
           <div className="w-full  hidden sm:flex  sm:col-span-1">
             <Image
-                className="transform hover:scale-105 transition-transform-opacity shadow-xl"
+                className="transform hover:scale-105 transition-transform-opacity "
                 alt="Dago"
-                src={FTKxDago.src}
+                src={contact.src}
+                height={550}
               />
           </div>
         </div>

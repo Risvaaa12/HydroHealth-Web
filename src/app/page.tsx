@@ -17,11 +17,12 @@ export default function LandingPage() {
       <div id="feature">
         <Features />
       </div>
-      <div>
-        <GalleryInstagram/>
-      </div>
+      
       <div id="contact">
         <Contact />
+      </div>
+      <div>
+        <GalleryInstagram/>
       </div>
     </main>
   );

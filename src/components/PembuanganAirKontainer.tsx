@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Input,
@@ -10,28 +9,37 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
-import { Divider } from "@mui/material";
+import { database } from "../../firebaseConfig"; // import the database instance
+import { ref, onValue, set } from "firebase/database"; // Changed this line
+
+
 
 export default function PembuanganAirKontainer() {
-  const [isSelenoidValve, setIsSelenoidValve] = useState(false); 
+  const [isSelenoidValve, setIsSelenoidValve] = useState(false);
+  const valveRef = ref(database, "Kontrol_Panel/Pembuangan ke Kontainer");
+  useEffect(() => {
+    onValue(valveRef, (snapshot) => {
+      setIsSelenoidValve(snapshot.val()); // update the local state with the database value
+    });
+  }, [valveRef]);
 
   const handleManualToggle = () => {
-    setIsSelenoidValve(!isSelenoidValve);
+    set(valveRef, !isSelenoidValve); // update the database value when the button is clicked
   };
 
   return (
-    <div className="bg-green-200 m-2 w-50 sm:w-60 py-2 rounded-lg">
-      <h1 className="font-bold text-center">Pengurasan Air Kontainer</h1>
+    <div className="bg-green-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
+      <h1 className="font-bold text-center text-sm sm:text-base">Pengurasan Air Kontainer</h1>
       <div className="flex flex-row gap-6 bg-green-200 p-2 rounded-lg justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-2 text-sm">
-            <div className="flex flex-col justify-center items-center text-sm">
-                <p className="text-sm text-center pb-2">Kontrol Air Kontainer</p>
-                </div>
-                <div className="flex justify-center">
-                <Button size="sm"  variant="faded" color="secondary" onPress={handleManualToggle}>
-                    {isSelenoidValve ? "Hidup" : "Mati"}
-                </Button>
-            </div>
+          <div className="flex flex-col justify-center items-center text-sm">
+            <p className="text-sm text-center pb-2">Pembuangan Air dari Kontainer</p>
+          </div>
+          <div className="flex justify-center">
+            <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
+              {isSelenoidValve ? "Hidup" : "Mati"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

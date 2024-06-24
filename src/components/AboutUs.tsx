@@ -33,19 +33,12 @@ import {
           </div>
           <div>
             <p className="text-sm text-slate-800 p-2 sm:text-base text-center">
-                Fakultas Teknik dan Kejuruan Universitas Pendidikan Ganesha melakukan
-                kerja sama kolaborasi bersama dengan PT. Dago Engineering, Bandung.
-                Sebagai bentuk penggunaan teknologi, MBKM ini mengusung tema Smart
-                Green Garden yang berfokus pada sektor pertanian hidroponik dan sektor
-                teknologi canggih yaitu Internet of Things (IoT), Artificial
-                Intelligence (AI), dan pemanfaatan Energi Terbarukan dari sinar
-                matahari menggunakan panel surya. Fakultas Teknik dan Kejuruan Universitas Pendidikan Ganesha melakukan
-                kerja sama kolaborasi bersama dengan PT. Dago Engineering, Bandung.
-                Sebagai bentuk penggunaan teknologi, MBKM ini mengusung tema Smart
-                Green Garden yang berfokus pada sektor pertanian hidroponik dan sektor
-                teknologi canggih yaitu Internet of Things (IoT), Artificial
-                Intelligence (AI), dan pemanfaatan Energi Terbarukan dari sinar
-                matahari menggunakan panel surya.
+            Fakultas Teknik dan Kejuruan Universitas Pendidikan Ganesha (FTK-Undiksha) telah menjalin kerja sama kolaborasi dengan PT. Dago Engineering yang berbasis di Bandung. Kerja sama ini bertujuan untuk mengembangkan penggunaan teknologi dalam program Merdeka Belajar Kampus Merdeka (MBKM). Salah satu inisiatif yang diusung dalam kolaborasi ini adalah tema Smart Green Garden.
+
+            Program Smart Green Garden ini berfokus pada pengembangan sektor pertanian hidroponik yang memanfaatkan teknologi canggih. Teknologi yang diterapkan meliputi Internet of Things (IoT), yang memungkinkan pengawasan dan pengendalian sistem pertanian secara real-time; Artificial Intelligence (AI), yang membantu dalam pengambilan keputusan berbasis data untuk meningkatkan efisiensi dan produktivitas; serta pemanfaatan Energi Terbarukan dari sinar matahari melalui penggunaan panel surya.
+
+            Kerja sama ini tidak hanya bertujuan untuk meningkatkan kualitas pendidikan dan penelitian di FTK-Undiksha, tetapi juga untuk memberikan kontribusi nyata dalam pengembangan teknologi pertanian yang berkelanjutan. Mahasiswa yang terlibat dalam program ini diharapkan dapat memperoleh pengalaman praktis dan pengetahuan yang mendalam tentang teknologi-teknologi terbaru, sehingga mereka siap untuk menghadapi tantangan di dunia kerja.
+
             </p>
         </div>
         </div>

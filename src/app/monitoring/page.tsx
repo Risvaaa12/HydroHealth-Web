@@ -24,6 +24,8 @@ import HistoryTanaman from "@/components/HistoryTanaman";
 import PembuanganAirPipa from "@/components/PembuanganAirPipa";
 import SumberAir from "@/components/SumberAirControl";
 import PembuanganAirKontainer from "@/components/PembuanganAirKontainer";
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
+import LoopTwoToneIcon from '@mui/icons-material/LoopTwoTone';
 
 export default function Monitoring() {
   const user = useAuth();
@@ -37,17 +39,20 @@ export default function Monitoring() {
           <div className="flex flex-col justify-center items-center">
             <div className="flex flex-col mt-12 justify-center items-center px-4 max-w-screen-xl">
                 <p className="text-x text-center sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl font-bold pb-2">
-                  Selamat datang di <span className="font-bold text-emerald-500">Monitoring</span> Page, {user ? user.displayName : ""}👋
+                  Selamat datang di halaman <span className="font-bold text-emerald-500">Kontrol dan Monitoring</span>, {user ? user.displayName : ""}👋
                 </p>
-                <p className="text-base pb-4 text-slate-700"> Tetap Jaga Kestabilan Hidroponikmu!</p>  
+            </div>
+            <div className="flex pb-4 gap-6">
+              <p className="font-semibold text-base pb-4 text-slate-700"> Jenis Tanaman: Cabai</p>  
+              <p className="text-base font-semibold pb-4 text-slate-700"> Umur Tanaman: 22 Hari </p>  
             </div>
             <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-4">
               <div className="grid grid-cols-2 gap-1 sm:grid sm:grid-cols-4 sm:grid-rows-1 sm:gap-2 justify-center">
-                <PompaControl />
-                <PengadukControl />
                 <PelindungControl />
-                <PestisidaControl />
+                <PengadukControl />
                 <PupukDaunControl />
+                <PestisidaControl />
+                <PompaControl />
                 <SumberAir/>
                 <PembuanganAirKontainer/>
                 <PembuanganAirPipa/>

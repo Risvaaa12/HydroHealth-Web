@@ -145,13 +145,7 @@ export default function Collaboration() {
           </div>
           <div>
             <p className="text-center text-sm mt-4 sm:text-base">
-              Fakultas Teknik dan Kejuruan Universitas Pendidikan Ganesha melakukan
-              kerja sama kolaborasi bersama dengan PT. Dago Engineering, Bandung.
-              Sebagai bentuk penggunaan teknologi, MBKM ini mengusung tema Smart
-              Green Garden yang berfokus pada sektor pertanian hidroponik dan sektor
-              teknologi canggih yaitu Internet of Things (IoT), Artificial
-              Intelligence (AI), dan pemanfaatan Energi Terbarukan dari sinar
-              matahari menggunakan panel surya.
+            Fakultas Teknik dan Kejuruan Universitas Pendidikan Ganesha (FTK-Undiksha) telah menjalin kemitraan dengan PT. Dago Engineering di Bandung. Kolaborasi ini ditujukan untuk memanfaatkan teknologi dalam program Merdeka Belajar Kampus Merdeka (MBKM) dengan tema Smart Green Garden. Inisiatif ini menitikberatkan pada pengembangan pertanian hidroponik yang didukung oleh teknologi mutakhir seperti Internet of Things (IoT), kecerdasan buatan (AI), dan energi terbarukan yang dihasilkan melalui panel surya. Program ini bertujuan untuk mengintegrasikan teknologi tinggi dalam pertanian, meningkatkan efisiensi, serta mendukung praktik pertanian yang berkelanjutan dan ramah lingkungan.
             </p>
           </div>
         </div>

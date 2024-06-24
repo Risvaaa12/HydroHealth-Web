@@ -13,6 +13,7 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
+
 export default function PompaControl () {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [pompaValue, setPompaValue] = useState(0);
@@ -28,11 +29,11 @@ export default function PompaControl () {
     }
 
     return (
-        <div className="bg-green-200 m-2 w-50 sm:w-60 py-2 rounded-lg">
-            <h1 className="font-bold text-center">Pompa</h1>
+        <div className="bg-green-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
+            <h1 className="font-bold text-center text-sm sm:text-base">Pompa Kontainer</h1>
             <div className="flex flex-row gap-6  bg-green-200 p-2 rounded-lg justify-center items-center">
             <div className="flex flex-col justify-center items-center gap-2 text-sm">
-                <p className="text-sm text-center pb-2">Pompa dikendalikan secara otomatis</p>
+                <p className="text-sm text-center pb-2">Pompa dikendalikan otomatis</p>
                 <Button onPress={onOpen} size="sm"  variant="faded" color="secondary">
                     Atur Manual
                 </Button>
@@ -54,7 +55,7 @@ export default function PompaControl () {
                     <ModalBody className="w-full">
                         <div className="flex flex-col justify-center items-center text-sm">
                         <p className="text-sm font-bold pb-2">
-                            Atur Waktu Menyala Pompa
+                            Atur Durasi Menyala Pompa
                         </p>
                         <p className="text-sm pb-2">
                             Durasi Menyala : {pompaValue}
