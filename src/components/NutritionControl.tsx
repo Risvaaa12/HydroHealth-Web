@@ -30,6 +30,26 @@ export default function NutritionControl() {
   const [labels, setLabels] = useState<string[]>([]);
   const [nutrisiValue, setNutrisiValue] = useState<number>(0);
   const [updateNutrisi, setUpdateNutrisi] = useState<number>(0);
+  const [sisaNutrisiA, setSisaNutrisiA] = useState<number>(0);
+  const [sisaNutrisiB, setSisaNutrisiB] = useState<number>(0);
+
+  useEffect(() => {
+    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi A");
+    onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setSisaNutrisiA(values[0]);
+    });
+  }, []);
+
+  useEffect(() => {
+    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi B");
+    onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setSisaNutrisiB(values[0]);
+    });
+  }, []);
   
 
   useEffect(() => {
@@ -131,7 +151,7 @@ export default function NutritionControl() {
     <>
       <div id="nutrisi" className="bg-green-200 p-4 -pb-8 rounded-xl text-center  flex flex-col justify-center items-center">
         <p className="font-semibold  text-md">Monitoring dan Kontrol Nutrisi</p>
-        <p className="text-sm ">Kebutuhan Nutrisi : {updateNutrisi} PPM</p>
+        {/* <p className="text-sm ">Kebutuhan Nutrisi : {updateNutrisi} PPM</p> */}
         <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full">
           <Gauge
             startAngle={-110}
@@ -167,12 +187,13 @@ export default function NutritionControl() {
               <ModalBody className="w-full">
                 <div className="flex flex-col justify-center items-center text-sm">
                   <p className="text-base font-bold pb-2">Atur Jumlah Nutrisi Yang Dibutuhkan</p>
-                  <p className="text-sm pb-2">Sisa Larutan Nutrisi AB Mix : 3 Liter</p>
+                  <p className="text-sm pb-2">Sisa Larutan Nutrisi A : {sisaNutrisiA} Liter</p>
+                  <p className="text-sm pb-2">Sisa Larutan Nutrisi B : {sisaNutrisiB} Liter</p>
                 </div>
-                <div className="flex flex-row justify-center items-center gap-6 text-sm">
+                {/* <div className="flex flex-row justify-center items-center gap-6 text-sm">
                   <Input color="primary" type="number" label="Jumlah Nutrisi" value={tempNutrisiValue.toString()} onChange={handleInputChange} className="w-1/2" />
                   <Button variant="flat" color="primary" onPress={handleUpdateClick}>Update</Button>
-                </div>
+                </div> */}
                 <div style={{ padding: "16px" }} className="flex flex-col">
                   <div>
                     <canvas ref={chartRef} />

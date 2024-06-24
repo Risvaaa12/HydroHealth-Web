@@ -12,21 +12,24 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import { database } from "../../firebaseConfig"; // import the database instance
+import { ref, onValue, set } from "firebase/database";
 
 
 export default function PompaControl () {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const [pompaValue, setPompaValue] = useState(0);
-    const [tempPompaValue, setTempPompaValue] = useState(0);
-    const [isOtomatis, setOtomatis] = useState(true);
+    const [isPompaValue, setPompaValue] = useState(0);
+  const pompaRef = ref(database, "Kontrol_Panel/Pompa Utama");
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTempPompaValue(Number(e.target.value));
-    }
 
-    function handleUpdateClick() {
-    setPompaValue(tempPompaValue);
-    }
+    useEffect(() => {
+        onValue(pompaRef, (snapshot) => {
+          setPompaValue(snapshot.val()); // update the local state with the database value
+        });
+      }, [pompaRef]);
+    
+      const handleManualToggle = () => {
+        set(pompaRef, !isPompaValue); // update the database value when the button is clicked
+      };
 
     return (
         <div className="bg-green-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
@@ -34,56 +37,13 @@ export default function PompaControl () {
             <div className="flex flex-row gap-6  bg-green-200 p-2 rounded-lg justify-center items-center">
             <div className="flex flex-col justify-center items-center gap-2 text-sm">
                 <p className="text-sm text-center pb-2">Pompa dikendalikan otomatis</p>
-                <Button onPress={onOpen} size="sm"  variant="faded" color="secondary">
-                    Atur Manual
+                <div className="flex justify-center">
+                <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
+                {isPompaValue ? "Hidup" : "Mati"}
                 </Button>
             </div>
             </div>
-                <Modal
-                    isOpen={isOpen}
-                    placement="center"
-                    backdrop="blur"
-                    onOpenChange={onOpenChange}
-                    size="xl"
-                >
-                <ModalContent>
-                {(onClose) => (
-                    <>
-                    <ModalHeader className="flex flex-col gap-1">
-                        Kontrol Pompa
-                    </ModalHeader>
-                    <ModalBody className="w-full">
-                        <div className="flex flex-col justify-center items-center text-sm">
-                        <p className="text-sm font-bold pb-2">
-                            Atur Durasi Menyala Pompa
-                        </p>
-                        <p className="text-sm pb-2">
-                            Durasi Menyala : {pompaValue}
-                        </p>
-                        </div>
-                        <div className="flex flex-row justify-center items-center gap-6 text-sm">
-                        <Input
-                            color="primary"
-                            type="number"
-                            label="Durasi Menyala (menit)"
-                            value={tempPompaValue.toString()}
-                            onChange={handleInputChange}
-                            className="w-1/2"
-                        />
-                        <Button variant="flat" color="primary" onPress={handleUpdateClick}>
-                            Hidupkan
-                        </Button>
-                        </div>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="danger" variant="flat" onPress={onClose}>
-                        Tutup
-                        </Button>
-                    </ModalFooter>
-                    </>
-                )}
-                </ModalContent>
-            </Modal> 
+            </div> 
         </div>
     );
 }

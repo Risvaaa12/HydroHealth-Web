@@ -32,6 +32,25 @@ export default function PhControl() {
   const [pHUp, setPHUp] = useState(0);
 
   useEffect(() => {
+    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Up');
+    onValue(pHRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setPHUp(values[0]);
+    });
+  },[]);
+
+  useEffect(() => {
+    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Down');
+    onValue(pHRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setPHDown(values[0]);
+    });
+  },[]);
+
+
+  useEffect(() => {
     const pHRef = ref(database, 'Sensor/Monitoring');
     onValue(pHRef, (snapshot) => {
       const data = snapshot.val();
@@ -39,6 +58,7 @@ export default function PhControl() {
       setpHValue(values[0]);
     });
 },[]);
+
   useEffect(() => {
     const pHRef = ref(database, 'Sensor/Monitoring');
     onValue(pHRef, (snapshot) => {
