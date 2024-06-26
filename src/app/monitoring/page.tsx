@@ -26,6 +26,7 @@ import SumberAir from "@/components/SumberAirControl";
 import PembuanganAirKontainer from "@/components/PembuanganAirKontainer";
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import LoopTwoToneIcon from '@mui/icons-material/LoopTwoTone';
+import Classify from "@/components/Classify";
 
 export default function Monitoring() {
   const user = useAuth();
@@ -46,7 +47,7 @@ export default function Monitoring() {
               <p className="font-semibold text-base pb-4 text-slate-700"> Jenis Tanaman: Cabai</p>  
               <p className="text-base font-semibold pb-4 text-slate-700"> Umur Tanaman: 22 Hari </p>  
             </div>
-            <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-4">
+            <div className="flex border p-2 rounded-lg flex-col sm:flex-row md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-4">
               <div className="grid grid-cols-2 gap-1 sm:grid sm:grid-cols-4 sm:grid-rows-1 sm:gap-2 justify-center">
                 <PelindungControl />
                 <PengadukControl />
@@ -58,19 +59,16 @@ export default function Monitoring() {
                 <PembuanganAirPipa/>
               </div>
             </div>
-            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 px-4 mx-4 justify-center items-center w-full sm:w-3/4">
+            <div className="border mt-4 p-4 rounded-lg grid grid-cols-1 w-full sm:w-3/4 justify-center items-center">
+            <div className=" grid grid-cols-1  sm:grid-cols-2 gap-4 pb-4  justify-center items-center">
               <Camera1/>
               <Camera2/>
-              {/* <HistoryTanaman/> */}
             </div>
-            {/* <div>
-              <Button onPress={onOpen} variant="faded" color="secondary">
-                  Classification
-              </Button>
-            </div> */}
+              <Classify/>
+            </div>
           </div>
           
-          <div className="grid grid-cols-1 pb-12 sm:grid-cols-4 px-4 gap-4 sm:gap-8  sm:w-[90%] w-full  mx-4 sm:mx-12">
+          <div className="grid border p-4 rounded-lg grid-cols-1 mb-12 sm:grid-cols-4  gap-4 sm:gap-8  sm:w-[90%] w-full  mx-4 sm:mx-12">
             <NutritionControl />
             <PhControl />
             <div className="col-span-1 sm:col-span-2">

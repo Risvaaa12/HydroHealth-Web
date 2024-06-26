@@ -19,7 +19,7 @@ import {
   
     return (
       <>
-        <div className="flex flex-col justify-center w-full h-full sm:h-3/4">
+        <div className="flex flex-col justify-center w-full h-full">
           <Card radius="lg" className="border-none">
           <div className="relative overflow-hidden rounded-inherit rounded-large">
             <Image
@@ -32,7 +32,7 @@ import {
           </div>
           <CardFooter className="justify-center overflow-hidden py-1 absolute  bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
             <Button onPress={onOpen} variant="faded" color="secondary" size="sm">
-              Show Detail Camera
+              Camera 1
             </Button>
           </CardFooter>
         </Card>
