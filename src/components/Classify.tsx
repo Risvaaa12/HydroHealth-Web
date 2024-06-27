@@ -35,7 +35,7 @@ export default function Classify() {
       formData.append('file', file);
 
       try {
-        const response = await axios.post('${process.env.NEXT_PUBLIC_VERCEL_FASTAPI_CLASSIFY/upload/classify}', formData, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_VERCEL_FASTAPI_CLASSIFY}/upload/classify`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'accept': 'application/json',
@@ -44,9 +44,8 @@ export default function Classify() {
 
         if (response.status === 200) {
           const { predicted_class, probability } = response.data;
-          // Convert probability to percentage
           const probabilityPercentage = (probability * 100).toFixed(2);
-          setClassificationResult(`${predicted_class}(${probabilityPercentage}%)`);
+          setClassificationResult(`${predicted_class} (${probabilityPercentage}%)`);
         } else {
           alert(`Failed to classify image. Status code: ${response.status}`);
         }
