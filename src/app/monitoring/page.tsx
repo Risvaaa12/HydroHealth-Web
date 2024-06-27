@@ -24,8 +24,6 @@ import HistoryTanaman from "@/components/HistoryTanaman";
 import PembuanganAirPipa from "@/components/PembuanganAirPipa";
 import SumberAir from "@/components/SumberAirControl";
 import PembuanganAirKontainer from "@/components/PembuanganAirKontainer";
-import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
-import LoopTwoToneIcon from '@mui/icons-material/LoopTwoTone';
 import Classify from "@/components/Classify";
 
 export default function Monitoring() {

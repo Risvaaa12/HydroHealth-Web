@@ -35,7 +35,7 @@ export default function Classify() {
       formData.append('file', file);
 
       try {
-        const response = await axios.post('http://hydrohealth.dev.smartgreenovation.com/upload/classify', formData, {
+        const response = await axios.post('${process.env.NEXT_PUBLIC_VERCEL_FASTAPI_CLASSIFY/upload/classify}', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'accept': 'application/json',
