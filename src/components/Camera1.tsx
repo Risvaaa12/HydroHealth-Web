@@ -1,18 +1,19 @@
 import {
-    Image,
-    Card,
-    CardFooter,
-    Button,
-    Input,
-    Switch,
-    Modal,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    useDisclosure,
-  } from "@nextui-org/react";
-  import TeamPic from "@/assets/images/components/TeamPic.jpg";
+  Image,
+  Card,
+  CardFooter,
+  Button,
+  Input,
+  Switch,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
+import TeamPic from "@/assets/images/components/TeamPic.jpg";
+import Classify from "./Classify";
   
   export default function Camera1() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -30,10 +31,11 @@ import {
               height={300}
             />
           </div>
-          <CardFooter className="justify-center overflow-hidden py-1 absolute  bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <Button onPress={onOpen} variant="faded" color="secondary" size="sm">
-              Camera 1
+          <CardFooter className="flex px-4 justify-center overflow-hidden py-2 absolute   bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+            <Button onPress={onOpen} variant="faded" color="secondary">
+              Open Camera
             </Button>
+            <Classify/>
           </CardFooter>
         </Card>
         </div>
@@ -70,9 +72,9 @@ import {
                         </CardFooter> */}
                       </Card>
                     </div>
-                    <Button onPress={onOpen} variant="faded" color="secondary">
-                        Classification
-                    </Button>
+                    <div className="w-full">
+                    <Classify/>
+                    </div>
                   </>
                 </ModalBody>
                 <ModalFooter>

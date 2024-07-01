@@ -12,12 +12,12 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
-import TeamPic from "@/assets/images/components/TeamPic.jpg";
+import UploadImage from "@/assets/images/components/UploadImage.jpg";
 import axios from 'axios';
 
 export default function Classify() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [imageSrc, setImageSrc] = useState<string>(TeamPic.src);
+  const [imageSrc, setImageSrc] = useState<string>(UploadImage.src);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [classificationResult, setClassificationResult] = useState<string>('');
 
@@ -57,16 +57,16 @@ export default function Classify() {
   };
 
   const handleClearImage = () => {
-    setImageSrc(TeamPic.src);
+    setImageSrc(UploadImage.src);
     setSelectedFile(null);
     setClassificationResult('');
   };
 
   return (
-    <>
-      <div className="flex flex-col justify-center w-full h-full sm:h-3/4">
+    <div className="px-2">
+      <div className="flex flex-col justify-center ">
         <Button onPress={onOpen} variant="faded" color="secondary">
-          Classification
+          Try Classification
         </Button>
       </div>
       <Modal
@@ -128,6 +128,6 @@ export default function Classify() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }

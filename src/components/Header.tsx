@@ -28,10 +28,13 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import LogoHydroHealth from "../assets/images/logo/LogoHydroHealth.png";
 import GuestIcon from "../assets/images/user/Guest.png";
 import Link from "next/link";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import { useUserAuthentication } from "../services/usersServices";
 
 export default function Header() {
   const auth = getAuth(app);
   const [user, setUser] = useState<User | null>(null);
+  const [activeMenu, setActiveMenu] = useState<string>("");
   const router = useRouter();
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -46,7 +49,7 @@ export default function Header() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [setUser]);
 
   const handleLogout = async () => {
     try {
@@ -55,6 +58,10 @@ export default function Header() {
     } catch (error: any) {
       console.error("Error signing out:", error.message);
     }
+  };
+
+  const handleMenuClick = (menu: string) => {
+    setActiveMenu(menu);
   };
 
   useEffect(() => {
@@ -92,7 +99,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/about"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/about"
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/#beranda")}
               >
                 About Us
               </Link>
@@ -101,7 +113,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/#contact"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/about"
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/#contact")}
               >
                 Contact
               </Link>
@@ -110,7 +127,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/#feature"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/#feature"
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/#feature")}
               >
                 Features
               </Link>
@@ -119,7 +141,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/monitoring"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/monitoring"
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/monitoring")}
               >
                 Monitoring
               </Link>
@@ -131,7 +158,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/about"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/about"
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/about")}
               >
                 About Us
               </Link>
@@ -140,7 +172,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/#contact"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/#contact" 
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/#contact")}
               >
                 Contact
               </Link>
@@ -149,7 +186,12 @@ export default function Header() {
               <Link
                 color="foreground"
                 href="/#feature"
-                className="hover:text-emerald-500 transition-all ease-in-out duration-250"
+                className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
+                  activeMenu === "/#feature"
+                    ? "text-green-800 font-semibold"
+                    : ""
+                }`}
+                onClick={() => handleMenuClick("/#feature")}
               >
                 Features
               </Link>
@@ -198,6 +240,17 @@ export default function Header() {
                     Home
                   </Link>
                 </DropdownItem>
+                <DropdownItem color="default" key="admin" textValue="admin">
+                    <Link
+                      className="flex flex-row items-center gap-1"
+                      href="/admin"
+                      color="foreground"
+                      onClick={() => handleMenuClick("/admin")}
+                    >
+                      <AdminPanelSettingsIcon color="action" />
+                      Admin Panel
+                    </Link>
+                  </DropdownItem>
                 <DropdownItem color="default" key="about" textValue="about" className="sm:hidden">
                   <Link
                     className="flex flex-row items-center gap-1"
