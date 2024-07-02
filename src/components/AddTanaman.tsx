@@ -226,7 +226,7 @@ const AddTanaman = () => {
         </div>
         }
         color="default"
-        className="overflow-auto rounded-lg capitalize"
+        className="overflow-auto rounded-lg"
       >
         <TableHeader>
           <TableColumn>NO</TableColumn>

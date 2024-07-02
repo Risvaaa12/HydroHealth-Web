@@ -19,7 +19,6 @@ import AlertLoginGuest from "@/components/AlertLoginGuest";
 import AlertCheckAuth from "@/components/AlertCheckAuth";
 import AlertAuthorizedAdmin from "@/components/AlertAuthorizedAdmin";
 import { SearchIcon } from "@/components/SearchIcon";
-import AddTanaman from "@/components/AddTanaman";
 
 export default function Admin() {
   const user = useAuth();
@@ -192,12 +191,6 @@ export default function Admin() {
         <p className="text-center text-xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl font-bold pb-2 pt-2 sm:pt-8">
           Selamat datang di Admin Panel, {user.displayName}👋
         </p>
-        <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm outline outline-2 outline-emerald-200 rounded-lg mt-2">
-          <p className="font-semibold text-base sm:text-xl pt-4">
-            Manajemen Tanaman
-          </p>
-          <AddTanaman />
-        </div>
         <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm outline outline-2 outline-emerald-200 rounded-lg mt-2">
           <p className="font-semibold text-base sm:text-xl pt-4">
             Manajemen Pengguna

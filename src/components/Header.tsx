@@ -101,7 +101,7 @@ export default function Header() {
                 href="/about"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/about"
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/#beranda")}
@@ -115,7 +115,7 @@ export default function Header() {
                 href="/#contact"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/about"
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/#contact")}
@@ -129,7 +129,7 @@ export default function Header() {
                 href="/#feature"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/#feature"
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/#feature")}
@@ -143,7 +143,7 @@ export default function Header() {
                 href="/monitoring"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/monitoring"
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/monitoring")}
@@ -160,7 +160,7 @@ export default function Header() {
                 href="/about"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/about"
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/about")}
@@ -174,7 +174,7 @@ export default function Header() {
                 href="/#contact"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/#contact" 
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/#contact")}
@@ -188,7 +188,7 @@ export default function Header() {
                 href="/#feature"
                 className={`hover:text-emerald-500 transition-all ease-in-out duration-250 ${
                   activeMenu === "/#feature"
-                    ? "text-green-800 font-semibold"
+                    ? "text-emerald-600 font-semibold"
                     : ""
                 }`}
                 onClick={() => handleMenuClick("/#feature")}

@@ -66,7 +66,7 @@ export default function Classify() {
     <div className="px-2">
       <div className="flex flex-col justify-center ">
         <Button onPress={onOpen} variant="faded" color="secondary">
-          Try Classification
+          Classification
         </Button>
       </div>
       <Modal

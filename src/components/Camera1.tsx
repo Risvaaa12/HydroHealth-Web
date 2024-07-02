@@ -12,8 +12,35 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
-import TeamPic from "@/assets/images/components/TeamPic.jpg";
 import Classify from "./Classify";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Deteksi1 from "../assets/images/components/Dekteksi1.jpeg";
+import Deteksi2 from "../assets/images/components/Deteksi2.jpeg";
+// import Deteksi3 from "../assets/images/components/Deteksi3.jpg";
+// import Deteksi4 from "../assets/images/components/Deteksi4.jpg";
+
+
+
+const carouselImages = [
+  {
+    src: Deteksi1.src,
+    alt: "Object Detection 1"
+  },
+  {
+    src: Deteksi2.src,
+    alt: "Object Detection 2"
+  }
+  // {
+  //   src: Deteksi3.src,
+  //   alt: "Object Detection 3"
+  // },
+  // {
+  //   src: Deteksi4.src,
+  //   alt: "Object Detection 4"
+  // }
+];
+
   
   export default function Camera1() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -23,15 +50,27 @@ import Classify from "./Classify";
         <div className="flex flex-col justify-center w-full h-full">
           <Card radius="lg" className="border-none">
           <div className="relative overflow-hidden rounded-inherit rounded-large">
-            <Image
-              className="transform transition-transform-opacity object-cover"
-              alt="Next-Gen Hydroponics"
-              src={TeamPic.src}
-              width={700}
-              height={300}
-            />
+            <Carousel
+                showArrows={true}
+                showThumbs={false}
+                infiniteLoop={true}
+                autoPlay={true}
+                interval={3500}
+              >
+                {carouselImages.map((image, index) => (
+                  <div key={index}>
+                    <Image
+                      className="transform hover:scale-110 transition-transform-opacity object-cover"
+                      alt={image.alt}
+                      src={image.src}
+                      width={700}
+                      height={300}
+                    />
+                </div>
+              ))}
+            </Carousel>
           </div>
-          <CardFooter className="flex px-4 justify-center overflow-hidden py-2 absolute   bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+          <CardFooter className="flex px-4 justify-center overflow-hidden py-2 absolute  bottom-1 w-[calc(100%_-_8px)] ml-1 z-10">
             <Button onPress={onOpen} variant="faded" color="secondary">
               Open Camera
             </Button>
@@ -60,7 +99,7 @@ import Classify from "./Classify";
                           <Image
                             className="transform transition-transform-opacity object-cover"
                             alt="Next-Gen Hydroponics"
-                            src={TeamPic.src}
+                            src={Deteksi1.src}
                             width={700}
                             height={300}
                           />
