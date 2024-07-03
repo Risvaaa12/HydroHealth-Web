@@ -19,7 +19,6 @@ import {
 } from "@nextui-org/react";
 import { Gauge, gaugeClasses } from "@mui/x-charts/Gauge";
 import React, { useRef, useState, useEffect } from "react";
-import ImageIcon from "@mui/icons-material/Image";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 
@@ -30,26 +29,26 @@ export default function NutritionControl() {
   const [labels, setLabels] = useState<string[]>([]);
   const [nutrisiValue, setNutrisiValue] = useState<number>(0);
   const [updateNutrisi, setUpdateNutrisi] = useState<number>(0);
-  const [sisaNutrisiA, setSisaNutrisiA] = useState<number>(0);
-  const [sisaNutrisiB, setSisaNutrisiB] = useState<number>(0);
+  // const [sisaNutrisiA, setSisaNutrisiA] = useState<number>(0);
+  // const [sisaNutrisiB, setSisaNutrisiB] = useState<number>(0);
 
-  useEffect(() => {
-    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi A");
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data];
-      setSisaNutrisiA(values[0]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi A");
+  //   onValue(dataRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     const values = [data];
+  //     setSisaNutrisiA(values[0]);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi B");
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data];
-      setSisaNutrisiB(values[0]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi B");
+  //   onValue(dataRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     const values = [data];
+  //     setSisaNutrisiB(values[0]);
+  //   });
+  // }, []);
   
 
   useEffect(() => {
@@ -185,11 +184,11 @@ export default function NutritionControl() {
             <>
               <ModalHeader className="flex flex-col gap-1">History Nutrisi</ModalHeader>
               <ModalBody className="w-full">
-                <div className="flex flex-col justify-center items-center text-sm">
+                {/* <div className="flex flex-col justify-center items-center text-sm">
                   <p className="text-base font-bold pb-2">Atur Jumlah Nutrisi Yang Dibutuhkan</p>
                   <p className="text-sm pb-2">Sisa Larutan Nutrisi A : {sisaNutrisiA} Liter</p>
                   <p className="text-sm pb-2">Sisa Larutan Nutrisi B : {sisaNutrisiB} Liter</p>
-                </div>
+                </div> */}
                 {/* <div className="flex flex-row justify-center items-center gap-6 text-sm">
                   <Input color="primary" type="number" label="Jumlah Nutrisi" value={tempNutrisiValue.toString()} onChange={handleInputChange} className="w-1/2" />
                   <Button variant="flat" color="primary" onPress={handleUpdateClick}>Update</Button>

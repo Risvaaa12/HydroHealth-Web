@@ -28,26 +28,26 @@ export default function PhControl() {
   const [chartData, setChartData] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
   const [pHValue, setpHValue] = useState(0);
-  const [pHDown, setPHDown] = useState(0);
-  const [pHUp, setPHUp] = useState(0);
+  // const [pHDown, setPHDown] = useState(0);
+  // const [pHUp, setPHUp] = useState(0);
 
-  useEffect(() => {
-    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Up');
-    onValue(pHRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data];
-      setPHUp(values[0]);
-    });
-  },[]);
+  // useEffect(() => {
+  //   const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Up');
+  //   onValue(pHRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     const values = [data];
+  //     setPHUp(values[0]);
+  //   });
+  // },[]);
 
-  useEffect(() => {
-    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Down');
-    onValue(pHRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data];
-      setPHDown(values[0]);
-    });
-  },[]);
+  // useEffect(() => {
+  //   const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Down');
+  //   onValue(pHRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     const values = [data];
+  //     setPHDown(values[0]);
+  //   });
+  // },[]);
 
 
   useEffect(() => {
@@ -187,7 +187,7 @@ export default function PhControl() {
                 History pH
               </ModalHeader>
               <ModalBody className="w-full">
-                <div className="flex flex-col justify-center items-center text-sm">
+                {/* <div className="flex flex-col justify-center items-center text-sm">
                   <p className="text-base font-bold pb-2">
                     Jumlah pH up dan Down pada Kontainer
                   </p>
@@ -197,7 +197,7 @@ export default function PhControl() {
                   <p className="text-base pb-2">
                     Sisa Larutan pH Down : {pHDown} Liter
                   </p>
-                </div>
+                </div> */}
                 <div style={{ padding: "16px" }} className="flex flex-col">
                   <div>
                     <canvas ref={chartRef} />

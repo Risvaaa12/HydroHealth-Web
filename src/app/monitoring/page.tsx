@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 import { Typography } from "@mui/material";
 import { useAuth } from "@/middleware/AuthenticationProviders";
 import AuthenticationForm from "../../components/AuthenticationForm";
@@ -13,22 +12,63 @@ import PhControl from "../../components/PhControl";
 import SuhuControl from "../../components/SuhuControl";
 import Camera1 from "../../components/Camera1";
 import { Button, useDisclosure, Image, Card, CardFooter } from "@nextui-org/react";
-import HistoryTanaman from "@/components/HistoryTanaman";
 import PembuanganAirPipa from "@/components/PembuanganAirPipa";
 import SumberAir from "@/components/SumberAirControl";
 import PembuanganAirKontainer from "@/components/PembuanganAirKontainer";
-import Classify from "@/components/Classify";
-import { useEffect, useState } from "react";
 import AlertCheckAuth from "@/components/AlertCheckAuth";
 import AlertLoginGuest from "@/components/AlertLoginGuest";
 import AlertAuthorizedMember from "@/components/AlertAuthorizedMember";
 import AddTanaman from "@/components/AddTanaman";
+import { ref, onValue } from "firebase/database";
+import { database } from "../../../firebaseConfig";
+import React, { useRef, useState, useEffect } from "react";
+
 
 export default function Monitoring() {
   const user = useAuth();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [sisaNutrisiA, setSisaNutrisiA] = useState<number>(0);
+  const [sisaNutrisiB, setSisaNutrisiB] = useState<number>(0);
+  const [pHDown, setPHDown] = useState<number>(0);
+  const [pHUp, setPHUp] = useState<number>(0);
+
+  useEffect(() => {
+    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi A");
+    onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setSisaNutrisiA(values[0]);
+    });
+  }, []);
+
+  useEffect(() => {
+    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi B");
+    onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setSisaNutrisiB(values[0]);
+    });
+  }, []);
+
+  useEffect(() => {
+    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Up');
+    onValue(pHRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setPHUp(values[0]);
+    });
+  },[]);
+
+  useEffect(() => {
+    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Down');
+    onValue(pHRef, (snapshot) => {
+      const data = snapshot.val();
+      const values = [data];
+      setPHDown(values[0]);
+    });
+  },[]);
 
   useEffect(() => {
     if (user) {
@@ -95,7 +135,19 @@ export default function Monitoring() {
             <p className="font-semibold text-base sm:text-xl py-4">
               Monitoring Hidroponik
             </p>
-            <div className="grid pt-2 grid-cols-1 mb-12 sm:grid-cols-4 gap-4 sm:gap-8 sm:w-[90%] w-full sm:mx-12">
+            <div className="grid grid-cols-1 mb-4 sm:grid-cols-4 gap-4 sm:gap-8 sm:w-[90%] w-full sm:mx-12">
+              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
+                <p className="text-sm font-semibold">Sisa Larutan Nutrisi A : {sisaNutrisiA} Liter</p>
+              </div>
+              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
+                <p className="text-sm font-semibold">Sisa Larutan Nutrisi B : {sisaNutrisiB} Liter</p>
+              </div>
+              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
+                <p className="text-sm font-semibold">Sisa Larutan pH Up : {pHUp} Liter</p>
+              </div>
+              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
+                <p className="text-sm font-semibold">Sisa Larutan ph Down : {pHDown} Liter</p>
+              </div>
               <NutritionControl />
               <PhControl />
               <div className="col-span-1 sm:col-span-2">

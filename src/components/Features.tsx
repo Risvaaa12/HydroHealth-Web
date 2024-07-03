@@ -39,7 +39,7 @@ export default function Features() {
                 showThumbs={false}
                 infiniteLoop={true}
                 autoPlay={true}
-                interval={2000}
+                interval={3000}
               >
                 {carouselImages.map((image, index) => (
                   <div key={index}>
