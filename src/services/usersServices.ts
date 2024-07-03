@@ -58,7 +58,7 @@ export const useUserAuthentication = () => {
       if (result.user) {
         const destination = isAdmin(result.user.email)
           ? "/admin"
-          : "/dashboard";
+          : "/monitoring";
         router.push(destination);
       }
     } catch (error: any) {
@@ -72,7 +72,7 @@ export const useUserAuthentication = () => {
       if (result.user) {
         const destination = isAdmin(result.user.email)
           ? "/admin"
-          : "/dashboard";
+          : "/monitoring";
         router.refresh();
         setTimeout(() => {
           router.push(destination);
@@ -132,7 +132,7 @@ export const useUserAuthentication = () => {
       if (currentUser && currentUser.email) {
         const destination = isAdmin(currentUser.email)
           ? "/admin"
-          : "/dashboard";
+          : "/monitoring";
         router.refresh();
         setTimeout(() => {
           router.push(destination);

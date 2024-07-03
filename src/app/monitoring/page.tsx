@@ -11,6 +11,7 @@ import PupukDaunControl from "../../components/PupukDaunControl";
 import PhControl from "../../components/PhControl";
 import SuhuControl from "../../components/SuhuControl";
 import Camera1 from "../../components/Camera1";
+import LogActivity from "../../components/LogActivity";
 import { Button, useDisclosure, Image, Card, CardFooter } from "@nextui-org/react";
 import PembuanganAirPipa from "@/components/PembuanganAirPipa";
 import SumberAir from "@/components/SumberAirControl";
@@ -108,7 +109,6 @@ export default function Monitoring() {
               </p>
               <Camera1 />
             </div>
-            
             <div className="flex border mt-4 p-2 rounded-lg flex-col outline outline-2 justify-center items-center gap-4">
               <p className="font-semibold text-base sm:text-xl pt-4">
                 Kontrol Hidroponik
@@ -154,6 +154,9 @@ export default function Monitoring() {
                 <SuhuControl />
               </div>
             </div>
+          </div>
+          <div>
+             <LogActivity/>
           </div>
         </>
       ) : (
