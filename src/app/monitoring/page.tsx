@@ -11,7 +11,6 @@ import PupukDaunControl from "../../components/PupukDaunControl";
 import PhControl from "../../components/PhControl";
 import SuhuControl from "../../components/SuhuControl";
 import Camera1 from "../../components/Camera1";
-import LogActivity from "../../components/LogActivity";
 import { Button, useDisclosure, Image, Card, CardFooter } from "@nextui-org/react";
 import PembuanganAirPipa from "@/components/PembuanganAirPipa";
 import SumberAir from "@/components/SumberAirControl";
@@ -23,6 +22,7 @@ import AddTanaman from "@/components/AddTanaman";
 import { ref, onValue } from "firebase/database";
 import { database } from "../../../firebaseConfig";
 import React, { useRef, useState, useEffect } from "react";
+import LogActivity from "@/components/LogActivity";
 
 
 export default function Monitoring() {
@@ -126,12 +126,12 @@ export default function Monitoring() {
             </div>
           </div>
           <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm outline outline-2 rounded-lg mt-4">
-              <p className="font-semibold text-base sm:text-xl  pt-4">
-                Manajemen Tanaman
-              </p>
-              <AddTanaman />
-            </div>
-          <div className="flex p-2 border mt-4 rounded-lg justify-center outline outline-2 mb-8 items-center flex-col">
+            <p className="font-semibold text-base sm:text-xl  pt-4">
+              Manajemen Tanaman
+            </p>
+            <AddTanaman />
+          </div>
+          <div className="flex p-2 border mt-4 rounded-lg justify-center outline outline-2  items-center flex-col">
             <p className="font-semibold text-base sm:text-xl py-4">
               Monitoring Hidroponik
             </p>
@@ -155,8 +155,11 @@ export default function Monitoring() {
               </div>
             </div>
           </div>
-          <div>
-             <LogActivity/>
+          <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm mb-8 outline outline-2 rounded-lg mt-4">
+            <p className="font-semibold text-base sm:text-xl  pt-4">
+              Log Aktivitas
+            </p>
+            <LogActivity />
           </div>
         </>
       ) : (
