@@ -23,53 +23,73 @@ import { ref, onValue } from "firebase/database";
 import { database } from "../../../firebaseConfig";
 import React, { useRef, useState, useEffect } from "react";
 import LogActivity from "@/components/LogActivity";
+import { LinearProgress } from "@mui/material";
+import { Opacity, Science, WaterDrop, Nature, LocalFlorist, BugReport, Cloud } from "@mui/icons-material";
 
+// Import Axios for API requests (install axios if not installed yet)
+import axios from "axios";
 
 export default function Monitoring() {
   const user = useAuth();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [sisaNutrisiA, setSisaNutrisiA] = useState<number>(0);
-  const [sisaNutrisiB, setSisaNutrisiB] = useState<number>(0);
+  const [sisaNutrisiAB, setSisaNutrisiAB] = useState<number>(0);
   const [pHDown, setPHDown] = useState<number>(0);
   const [pHUp, setPHUp] = useState<number>(0);
+  const [sisaKontainer, setSisaKontainer] = useState<number>(0);
+  const [sisaPupukDaun, setSisaPupukDaun] = useState<number>(0);
+  const [sisaPestisida, setSisaPestisida] = useState<number>(0);
+  const [weatherInfo, setWeatherInfo] = useState<any>(null); // State untuk menyimpan data cuaca
 
   useEffect(() => {
-    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi A");
+    const dataRef = ref(database, "Monitoring/Sisa Nutrisi AB");
     onValue(dataRef, (snapshot) => {
       const data = snapshot.val();
-      const values = [data];
-      setSisaNutrisiA(values[0]);
+      setSisaNutrisiAB(data);
     });
   }, []);
 
-  useEffect(() => {
-    const dataRef = ref(database, "Sensor/Monitoring/Sisa Nutrisi B");
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data];
-      setSisaNutrisiB(values[0]);
-    });
-  }, []);
 
   useEffect(() => {
-    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Up');
+    const pHRef = ref(database, 'Monitoring/Sisa pH Up');
     onValue(pHRef, (snapshot) => {
       const data = snapshot.val();
-      const values = [data];
-      setPHUp(values[0]);
+      setPHUp(data);
     });
   },[]);
 
   useEffect(() => {
-    const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Down');
+    const pHRef = ref(database, 'Monitoring/Sisa pH Down');
     onValue(pHRef, (snapshot) => {
       const data = snapshot.val();
-      const values = [data];
-      setPHDown(values[0]);
+      setPHDown(data);
     });
   },[]);
+
+  useEffect(() => {
+    const kontainerRef = ref(database, "Monitoring/Sisa Kontainer");
+    onValue(kontainerRef, (snapshot) => {
+      const data = snapshot.val();
+      setSisaKontainer(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const pupukDaunRef = ref(database, "Monitoring/Sisa Pupuk Daun");
+    onValue(pupukDaunRef, (snapshot) => {
+      const data = snapshot.val();
+      setSisaPupukDaun(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const pestisidaRef = ref(database, "Monitoring/Sisa Pestisida");
+    onValue(pestisidaRef, (snapshot) => {
+      const data = snapshot.val();
+      setSisaPestisida(data);
+    });
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -82,6 +102,23 @@ export default function Monitoring() {
     }
   }, [user]);
 
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const response = await axios.get(
+          `http://api.openweathermap.org/data/2.5/weather?q=Jakarta,id&appid=${process.env.NEXT_PUBLIC_VERCEL_WEATHER}&units=metric`
+        );
+        setWeatherInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+  
+    fetchWeatherData();
+  }, []);
+  
+  
+
   if (isCheckingAuth) {
     return <AlertCheckAuth />;
   }
@@ -93,6 +130,17 @@ export default function Monitoring() {
   if (!isAuthorized) {
     return <AlertAuthorizedMember />;
   }
+
+  const renderProgressBar = (label: string, value: number, IconComponent: any) => (
+    <div className="flex flex-col items-center bg-green-200 p-3 rounded-xl">
+      <div className="flex items-center">
+        <IconComponent className="text-green-600 mr-2" />
+        <p className="text-sm font-semibold">{label}</p>
+      </div>
+      <LinearProgress variant="determinate" value={(value / 100) * 100} className="w-full mt-2" />
+      <p className="text-xs mt-1">{value} Liter</p>
+    </div>
+  );
 
   return (
     <main className="flex flex-col justify-center min-h-screen mx-2 items-center gap-3">
@@ -131,23 +179,41 @@ export default function Monitoring() {
             </p>
             <AddTanaman />
           </div>
-          <div className="flex p-2 border mt-4 rounded-lg justify-center outline outline-2  items-center flex-col">
+          <div className="flex p-2 border mt-4 rounded-lg justify-center outline outline-2 items-center flex-col">
             <p className="font-semibold text-base sm:text-xl py-4">
               Monitoring Hidroponik
             </p>
-            <div className="grid grid-cols-1 mb-4 sm:grid-cols-4 gap-4 sm:gap-8 sm:w-[90%] w-full sm:mx-12">
-              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
-                <p className="text-sm font-semibold">Sisa Larutan Nutrisi A : {sisaNutrisiA} Liter</p>
-              </div>
-              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
-                <p className="text-sm font-semibold">Sisa Larutan Nutrisi B : {sisaNutrisiB} Liter</p>
-              </div>
-              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
-                <p className="text-sm font-semibold">Sisa Larutan pH Up : {pHUp} Liter</p>
-              </div>
-              <div className="bg-green-200 p-3  rounded-xl text-center  flex flex-col justify-center items-center">
-                <p className="text-sm font-semibold">Sisa Larutan ph Down : {pHDown} Liter</p>
-              </div>
+            <div className="grid grid-cols-1 mb-2 sm:grid-cols-2 gap-4 w-full sm:w-[70%] items-center sm:mx-12">
+              {renderProgressBar("Sisa Larutan Pupuk Daun", sisaPupukDaun, LocalFlorist)}
+              {renderProgressBar("Sisa Larutan Pestisida", sisaPestisida, BugReport)}
+            </div>
+            <div className="grid grid-cols-1 mb-2 sm:grid-cols-4 gap-4  sm:w-[90%] w-full sm:mx-12">
+              {renderProgressBar("Sisa Larutan Nutrisi AB", sisaNutrisiAB, Nature)}
+              {renderProgressBar("Sisa Larutan pH Up", pHUp, Opacity)}
+              {renderProgressBar("Sisa Larutan pH Down", pHDown, Opacity)}
+              {renderProgressBar("Sisa Larutan Kontainer", sisaKontainer, WaterDrop)}
+              {/* <div>
+              {weatherInfo && (
+                <Card className="flex flex-col items-center justify-center p-4 mt-4  w-full sm:mx-12 rounded-lg outline outline-2">
+                  <p className="font-semibold text-md">Monitoring dan Kontrol Nutrisi</p>
+                  <div className="flex items-center gap-4">
+                    <div>
+                      <Image
+                        src={`http://openweathermap.org/img/w/${weatherInfo.weather[0].icon}.png`}
+                        alt={weatherInfo.weather[0].description}
+                        width={50}
+                        height={50}
+                      />
+                    </div>
+                    <div>
+                      <Typography variant="subtitle1">{weatherInfo.weather[0].description}</Typography>
+                      <Typography variant="body2">{`Suhu: ${weatherInfo.main.temp} °C`}</Typography>
+                      <Typography variant="body2">{`Kelembaban: ${weatherInfo.main.humidity}%`}</Typography>
+                    </div>
+                  </div>
+                </Card>
+              )}
+              </div> */}
               <NutritionControl />
               <PhControl />
               <div className="col-span-1 sm:col-span-2">
