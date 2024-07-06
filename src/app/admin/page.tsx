@@ -120,7 +120,7 @@ export default function Admin() {
           activity: string;
         };
       });
-      setLogs(logsList);
+      setLogs(logsList.reverse());
     });
 
     return () => {
@@ -179,7 +179,7 @@ export default function Admin() {
         <p className="text-center text-xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl font-bold pb-2 pt-2 sm:pt-8">
           Selamat datang di halaman{" "}
           <span className="font-bold text-emerald-500">
-            Admin Panel
+            Admin Page
           </span>
           , {user.displayName}👋
         </p>
@@ -268,7 +268,11 @@ export default function Admin() {
                         variant="contained"
                         color="error"
                         size="small"
-                        onClick={() => handleDeleteUser(users.uid)}
+                        onClick={() => {
+                          if (window.confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+                            handleDeleteUser(users.uid);
+                          }
+                        }}
                       >
                         Hapus
                       </Button>

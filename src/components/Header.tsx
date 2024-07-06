@@ -248,7 +248,7 @@ export default function Header() {
                       onClick={() => handleMenuClick("/admin")}
                     >
                       <AdminPanelSettingsIcon color="action" />
-                      Admin Panel
+                      Admin Page
                     </Link>
                   </DropdownItem>
                 <DropdownItem color="default" key="about" textValue="about" className="sm:hidden">

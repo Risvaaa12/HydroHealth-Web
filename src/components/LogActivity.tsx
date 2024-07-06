@@ -2,7 +2,7 @@ import * as React from "react";
 import { Select, MenuItem, Button } from "@mui/material";
 import { useAuth } from "@/middleware/AuthenticationProviders";
 import { database } from "../../firebaseConfig";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, get, push, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import {
   Table,
@@ -14,9 +14,9 @@ import {
   Pagination,
   Input,
 } from "@nextui-org/react";
-import { SearchIcon } from "@/components/SearchIcon";
 
-interface LogEntry {
+interface LogData {
+  key: string;
   uid: string;
   displayName: string;
   timestamp: number;
@@ -25,35 +25,79 @@ interface LogEntry {
 
 export default function LogActivity() {
   const auth = useAuth(); // Get the current user from the useAuth hook
-  const [logs, setLogs] = useState<LogEntry[]>([]);
 
-  const kontrolPanelRef = ref(database, "Kontrol_Panel");
+  const [logAktivitasMember, setAktivitasMember] = useState<LogData[]>([]);
+
+  const logAktivitas = (activity: string) => {
+    const logRef = ref(database, "Log_Aktivitas_Member");
+    const newLogRef = push(logRef);
+    set(newLogRef, {
+      uid: auth?.uid,
+      displayName: auth?.displayName ?? "",
+      timestamp: Date.now(),
+      activity: activity,
+    });
+  };
+
+  const handleControlUpdate = (controlName: string) => {
+    const controlRef = ref(database, `Kontrol_Panel/${controlName}`);
+    let lastValue: any = null;
+    onValue(controlRef, (snapshot) => {
+      const newValue = snapshot.val();
+      if (newValue !== lastValue) {
+        lastValue = newValue;
+        logAktivitas(`Mengubah ${controlName} ke ${newValue ? "Hidup" : "Mati" }`);
+      }
+    });
+  };
 
   useEffect(() => {
-    if (auth) { // Add a null check
-      onValue(kontrolPanelRef, (snapshot) => {
-        const updates = snapshot.val();
-        const logEntries: LogEntry[] = Object.entries(updates).map(([key, value]) => {
-          return {
-            uid: auth.uid, // Use the current user's UID
-            displayName: auth.displayName?? "Unkown", // Use the current user's display name
-            timestamp: Date.now(), // Use the current timestamp
-            activity: `${key} was updated to ${value ? 'hidup' : 'mati'}`,
-          };
-        });
-        setLogs((prevLogs) => [...prevLogs, ...logEntries]);
+    if (!auth) return;
+    handleControlUpdate("Misting Pestisida");
+    handleControlUpdate("Misting Pupuk Daun");
+    handleControlUpdate("Pelindung Hama");
+    handleControlUpdate("Pemasukan ke Kontainer");
+    handleControlUpdate("Pembuangan Pipa Hidroponik");
+    handleControlUpdate("Pembuangan ke Kontainer");
+    handleControlUpdate("Pengaduk Larutan");
+    handleControlUpdate("Pompa Utama");
+  }, [auth]);
+
+  useEffect(() => {
+    if (!auth) return;
+    const logRef = ref(database, "Log_Aktivitas_Member");
+    const unsubscribe = onValue(logRef, (snapshot) => {
+      const logsData = snapshot.val() || {};
+      const logsList = Object.entries(logsData).map(([key, log]) => {
+        const logEntry = log as {
+          uid: string;
+          displayName: string;
+          timestamp: number;
+          activity: string;
+        };
+        return {
+          key,
+          uid: logEntry.uid,
+          displayName: logEntry.displayName,
+          timestamp: logEntry.timestamp,
+          activity: logEntry.activity,
+        };
       });
-    }
+      setAktivitasMember(logsList.reverse());
+    });
+    return () => {
+      unsubscribe();
+    };
   }, [auth]);
 
   const [pageListLog, setPageListLog] = useState(1);
   const rowsPerPageListLog = 5;
-  const pagesListLog = Math.ceil(logs.length / rowsPerPageListLog);
+  const pagesListLog = Math.ceil(logAktivitasMember.length / rowsPerPageListLog);
   const paginatedListLog = React.useMemo(() => {
     const start = (pageListLog - 1) * rowsPerPageListLog;
     const end = start + rowsPerPageListLog;
-    return logs.slice(start, end);
-  }, [pageListLog, logs]);
+    return logAktivitasMember.slice(start, end);
+  }, [pageListLog, logAktivitasMember]);
 
   return (
     <>
@@ -76,7 +120,7 @@ export default function LogActivity() {
         </TableHeader>
         <TableBody emptyContent={"Tidak ada log aktivitas."}>
           {paginatedListLog.map((log, index) => (
-            <TableRow key={log.timestamp}>
+            <TableRow key={log.key}>
               <TableCell>
                 {(pageListLog - 1) * rowsPerPageListLog + index + 1}
               </TableCell>
