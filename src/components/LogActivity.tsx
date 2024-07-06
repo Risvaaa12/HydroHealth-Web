@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Select, MenuItem, Button } from "@mui/material";
 import { useAuth } from "@/middleware/AuthenticationProviders";
 import { database } from "../../firebaseConfig";
-import { ref, onValue, get, push, set } from "firebase/database";
-import { useEffect, useState } from "react";
+import { ref, onValue, push, set, off } from "firebase/database";
+import { useEffect, useState, useRef } from "react";
 import {
   Table,
   TableHeader,
@@ -12,7 +11,6 @@ import {
   TableRow,
   TableCell,
   Pagination,
-  Input,
 } from "@nextui-org/react";
 
 interface LogData {
@@ -24,35 +22,52 @@ interface LogData {
 }
 
 export default function LogActivity() {
-  const auth = useAuth(); // Get the current user from the useAuth hook
+  const auth = useAuth();
 
   const [logAktivitasMember, setAktivitasMember] = useState<LogData[]>([]);
+  const listenersRef = useRef<{ [key: string]: boolean }>({});
+  const lastValuesRef = useRef<{ [key: string]: any }>({});
+  const initialLoadRef = useRef<{ [key: string]: boolean }>({});
 
   const logAktivitas = (activity: string) => {
+    if (!auth?.uid) {
+      console.error("User not authenticated");
+      return;
+    }
+
     const logRef = ref(database, "Log_Aktivitas_Member");
     const newLogRef = push(logRef);
-    set(newLogRef, {
-      uid: auth?.uid,
-      displayName: auth?.displayName ?? "",
+    const newLog: LogData = {
+      key: newLogRef.key ?? '', // Gunakan key yang dihasilkan oleh Firebase
+      uid: auth.uid,
+      displayName: auth.displayName ?? "",
       timestamp: Date.now(),
       activity: activity,
-    });
+    };
+
+    set(newLogRef, newLog);
   };
 
   const handleControlUpdate = (controlName: string) => {
     const controlRef = ref(database, `Kontrol_Panel/${controlName}`);
-    let lastValue: any = null;
-    onValue(controlRef, (snapshot) => {
-      const newValue = snapshot.val();
-      if (newValue !== lastValue) {
-        lastValue = newValue;
-        logAktivitas(`Mengubah ${controlName} ke ${newValue ? "Hidup" : "Mati" }`);
-      }
-    });
+    if (!listenersRef.current[controlName]) {
+      onValue(controlRef, (snapshot) => {
+        const newValue = snapshot.val();
+        // Check if it's the initial load
+        if (!initialLoadRef.current[controlName]) {
+          initialLoadRef.current[controlName] = true;
+        } else if (lastValuesRef.current[controlName] !== newValue) {
+          lastValuesRef.current[controlName] = newValue;
+          logAktivitas(`Mengubah ${controlName} ke ${newValue ? "Hidup" : "Mati"}`);
+        }
+      });
+      listenersRef.current[controlName] = true;
+    }
   };
 
   useEffect(() => {
     if (!auth) return;
+
     handleControlUpdate("Misting Pestisida");
     handleControlUpdate("Misting Pupuk Daun");
     handleControlUpdate("Pelindung Hama");
@@ -61,6 +76,20 @@ export default function LogActivity() {
     handleControlUpdate("Pembuangan ke Kontainer");
     handleControlUpdate("Pengaduk Larutan");
     handleControlUpdate("Pompa Utama");
+
+    // Cleanup listeners on unmount
+    return () => {
+      off(ref(database, "Kontrol_Panel/Misting Pestisida"));
+      off(ref(database, "Kontrol_Panel/Misting Pupuk Daun"));
+      off(ref(database, "Kontrol_Panel/Pelindung Hama"));
+      off(ref(database, "Kontrol_Panel/Pemasukan ke Kontainer"));
+      off(ref(database, "Kontrol_Panel/Pembuangan Pipa Hidroponik"));
+      off(ref(database, "Kontrol_Panel/Pembuangan ke Kontainer"));
+      off(ref(database, "Kontrol_Panel/Pengaduk Larutan"));
+      off(ref(database, "Kontrol_Panel/Pompa Utama"));
+      listenersRef.current = {};
+      initialLoadRef.current = {};
+    };
   }, [auth]);
 
   useEffect(() => {
