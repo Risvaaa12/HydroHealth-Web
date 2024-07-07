@@ -91,16 +91,16 @@ export default function Monitoring() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     if (user.role === "admin" || user.role === "member") {
-  //       setIsAuthorized(true);
-  //     }
-  //     setIsCheckingAuth(false);
-  //   } else {
-  //     setIsCheckingAuth(false);
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin" || user.role === "member") {
+        setIsAuthorized(true);
+      }
+      setIsCheckingAuth(false);
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -119,17 +119,17 @@ export default function Monitoring() {
   
   
 
-  // if (isCheckingAuth) {
-  //   return <AlertCheckAuth />;
-  // }
+  if (isCheckingAuth) {
+    return <AlertCheckAuth />;
+  }
 
-  // if (!user) {
-  //   return <AlertLoginGuest />;
-  // }
+  if (!user) {
+    return <AlertLoginGuest />;
+  }
 
-  // if (!isAuthorized) {
-  //   return <AlertAuthorizedMember />;
-  // }
+  if (!isAuthorized) {
+    return <AlertAuthorizedMember />;
+  }
 
   const renderProgressBar = (label: string, value: number, IconComponent: any) => (
     <div className="flex flex-col items-center bg-green-200 p-3 rounded-xl">
@@ -152,7 +152,7 @@ export default function Monitoring() {
                 <span className="font-bold text-emerald-500">
                   Kontrol dan Monitoring
                 </span>
-                {/* , {user ? user.displayName : ""}👋 */}
+                , {user ? user.displayName : ""}👋
               </p>
               <Camera1 />
             </div>
