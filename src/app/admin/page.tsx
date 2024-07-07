@@ -161,17 +161,17 @@ export default function Admin() {
     return logs.slice(start, end);
   }, [pageListLog, logs]);
 
-  if (isCheckingAuth) {
-    return <AlertCheckAuth />;
-  }
+  // if (isCheckingAuth) {
+  //   return <AlertCheckAuth />;
+  // }
 
-  if (!user) {
-    return <AlertLoginGuest />;
-  }
+  // if (!user) {
+  //   return <AlertLoginGuest />;
+  // }
 
-  if (!isAuthorized) {
-    return <AlertAuthorizedAdmin />;
-  }
+  // if (!isAuthorized) {
+  //   return <AlertAuthorizedAdmin />;
+  // }
 
   return (
     <main className="flex flex-col justify-center w-full min-h-screen gap-3 p-4">
@@ -181,7 +181,7 @@ export default function Admin() {
           <span className="font-bold text-emerald-500">
             Admin Page
           </span>
-          , {user.displayName}👋
+          {/* , {user.displayName}👋 */}
         </p>
         <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm outline outline-2 rounded-lg mt-2">
           <p className="font-semibold text-base sm:text-xl pt-4">
