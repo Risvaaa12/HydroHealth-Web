@@ -144,7 +144,6 @@ export default function Monitoring() {
 
   return (
     <main className="flex flex-col justify-center min-h-screen mx-2 items-center gap-3">
-      {user ? (
         <>
           <div className="flex flex-col justify-center items-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12 p-4 mb-4 justify-center items-center max-w-screen-xl">
@@ -228,16 +227,6 @@ export default function Monitoring() {
             <LogActivity />
           </div>
         </>
-      ) : (
-        <div className="flex flex-col min-h-screen -mt-16 p-4 justify-center items-center gap-2">
-          <Typography className="text-center">
-            Anda tidak memiliki akses, silahkan{" "}
-            <span className="font-bold text-emerald-500">Login</span>{" "}
-            terlebih dahulu!
-          </Typography>
-          <AuthenticationForm />
-        </div>
-      )}
     </main>
   );
 }
