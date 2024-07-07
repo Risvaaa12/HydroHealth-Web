@@ -45,16 +45,16 @@ export default function Admin() {
     }[]
   >([]);
 
-  useEffect(() => {
-    if (user) {
-      if (user.role === "admin") {
-        setIsAuthorized(true);
-      }
-      setIsCheckingAuth(false);
-    } else {
-      setIsCheckingAuth(false);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     if (user.role === "admin") {
+  //       setIsAuthorized(true);
+  //     }
+  //     setIsCheckingAuth(false);
+  //   } else {
+  //     setIsCheckingAuth(false);
+  //   }
+  // }, [user]);
 
   const handleChangeRole = (userId: any, newRole: unknown) => {
     const userRef = ref(database, `users/${userId}/role`);

@@ -91,16 +91,16 @@ export default function Monitoring() {
     });
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      if (user.role === "admin" || user.role === "member") {
-        setIsAuthorized(true);
-      }
-      setIsCheckingAuth(false);
-    } else {
-      setIsCheckingAuth(false);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     if (user.role === "admin" || user.role === "member") {
+  //       setIsAuthorized(true);
+  //     }
+  //     setIsCheckingAuth(false);
+  //   } else {
+  //     setIsCheckingAuth(false);
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
