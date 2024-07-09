@@ -14,12 +14,27 @@ import {
 } from "@nextui-org/react";
 import UploadImage from "@/assets/images/components/UploadImage.jpg";
 import axios from 'axios';
+import express from 'express';
+import proxyMiddleware from '../middleware/proxy'; // Impor middleware proxy yang baru saja dibuat
+
+const app = express();
+
+// Gunakan middleware proxy
+app.use(proxyMiddleware);
+
+// Endpoint dan middleware lainnya di sini
+
+app.listen(3000, () => {
+  console.log('Server berjalan di http://localhost:3000');
+});
+
 
 export default function Classify() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [imageSrc, setImageSrc] = useState<string>(UploadImage.src);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [classificationResult, setClassificationResult] = useState<string>('');
+  
 
   const handleChooseImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
