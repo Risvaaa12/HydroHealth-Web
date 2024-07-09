@@ -1,16 +1,17 @@
-// backend/server.ts
-
 import express from 'express';
-import proxyMiddleware from './middleware/proxy';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
 
-// Gunakan middleware proxy
-app.use(proxyMiddleware);
+// Contoh konfigurasi proxy
+app.use('/api', createProxyMiddleware({
+  target: 'http://hydrohealth.dev.smartgreenovation.com', // Ganti dengan base URL API Anda
+  changeOrigin: true, // Mengizinkan perubahan origin
+  secure: false, // Menonaktifkan validasi sertifikat SSL untuk permintaan dari server ke API (harus dipertimbangkan dengan hati-hati untuk produksi)
+}));
 
 // Endpoint dan middleware lainnya di sini
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('Server berjalan di http://localhost:3000');
 });
