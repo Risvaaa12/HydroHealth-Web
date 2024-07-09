@@ -1,11 +1,9 @@
-"use client";
 import { Chart } from "chart.js/auto";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, query, limitToLast } from "firebase/database";
 import { database } from "../../firebaseConfig";
 import * as XLSX from "xlsx";
 import {
   Button,
-  Input,
   Modal,
   ModalContent,
   ModalHeader,
@@ -19,63 +17,111 @@ import {
 } from "@nextui-org/react";
 import { Gauge, gaugeClasses } from "@mui/x-charts/Gauge";
 import React, { useRef, useState, useEffect } from "react";
-import ImageIcon from "@mui/icons-material/Image";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import TuneIcon from "@mui/icons-material/Tune";
+import "chartjs-adapter-moment";
+import moment from "moment";
 
 export default function PhControl() {
   const chartRef = useRef<HTMLCanvasElement>(null);
-  const [chartData, setChartData] = useState<number[]>([]);
+  const [chartData, setChartData] = useState<{ pH: number[] }>({ pH: [] });
   const [labels, setLabels] = useState<string[]>([]);
-  const [pHValue, setpHValue] = useState(0);
-  // const [pHDown, setPHDown] = useState(0);
-  // const [pHUp, setPHUp] = useState(0);
-
-  // useEffect(() => {
-  //   const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Up');
-  //   onValue(pHRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     const values = [data];
-  //     setPHUp(values[0]);
-  //   });
-  // },[]);
-
-  // useEffect(() => {
-  //   const pHRef = ref(database, 'Sensor/Monitoring/Sisa pH Down');
-  //   onValue(pHRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     const values = [data];
-  //     setPHDown(values[0]);
-  //   });
-  // },[]);
-
+  const [pHValue, setpHValue] = useState<number>(0);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [timestamp, setTimestamp] = useState<string>("");
 
   useEffect(() => {
-    const pHRef = ref(database, 'Sensor/Monitoring');
-    onValue(pHRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data.Ph];
-      setpHValue(values[0]);
-    });
-},[]);
-
-  useEffect(() => {
-    const pHRef = ref(database, 'Sensor/Monitoring');
-    onValue(pHRef, (snapshot) => {
-      const data = snapshot.val();
-      const values = [data.Ph];
-      setChartData(values);
-      // setPHDown(data.pHDown || []);
-      // setPHUp(data.pHUp || []);
-      setLabels([
-        "12AM", "2AM", "4AM", "6AM", "8AM",
-        "10AM", "12PM", "2PM", "4PM",
-        "6PM", "8PM", "10PM",
-      ]);
-    });
+    fetchData();
+    fetchLatestpH();
   }, []);
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  // Fetch data for chart
+  const fetchData = async (timeRange: string = "1d") => {
+    try {
+      const sensorRef = ref(database, "Monitoring");
+      onValue(sensorRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data); // Tambahkan log ini untuk debugging
+        if (data) {
+          const pHChart: number[] = [];
+          const newLabels: string[] = [];
+
+          Object.keys(data).forEach((time) => {
+            newLabels.push(time);
+            pHChart.push(parseFloat(data[time].pH));
+          });
+
+          const filteredLabels = filterLabels(newLabels, timeRange);
+          const newLabelsLimited = filteredLabels.slice(-30); // Ambil 30 data terbaru
+          const filteredpH = filterData(pHChart, newLabels, newLabelsLimited);
+
+          setLabels(newLabelsLimited);
+          setChartData({ pH: filteredpH });
+
+          const latestTime = newLabelsLimited[newLabelsLimited.length - 1];
+          setTimestamp(latestTime);
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchLatestpH = () => {
+    try {
+      const pHRef = ref(database, "Monitoring");
+      const latestQuery = query(pHRef, limitToLast(1));
+  
+      onValue(latestQuery, (latestSnapshot) => {
+        latestSnapshot.forEach((latestDataSnapshot) => {
+          const latestData = latestDataSnapshot.val();
+          if (latestData && latestData.pH) {
+            setpHValue(parseFloat(latestData.pH)); 
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching latest pH:", error);
+    }
+  };
+  
+
+  const filterLabels = (labels: string[], timeRange: string) => {
+    const currentDate = new Date();
+    let filterDate = new Date();
+
+    switch (timeRange) {
+      case "1d":
+        filterDate.setDate(currentDate.getDate() - 1);
+        break;
+      case "7d":
+        filterDate.setDate(currentDate.getDate() - 7);
+        break;
+      case "1m":
+        filterDate.setMonth(currentDate.getMonth() - 1);
+        break;
+      default:
+        break;
+    }
+
+    return labels.filter((label) => {
+      const [hours, minutes] = label.split(":").map(Number);
+      const labelDate = new Date();
+      labelDate.setHours(hours);
+      labelDate.setMinutes(minutes);
+      return labelDate >= filterDate;
+    });
+  };
+
+  const filterData = (data: number[], originalLabels: string[], filteredLabels: string[]) => {
+    return originalLabels.reduce((acc, label, index) => {
+      if (filteredLabels.includes(label)) {
+        acc.push(data[index]);
+      }
+      return acc;
+    }, [] as number[]);
+  };
 
   useEffect(() => {
     if (isOpen && chartRef.current) {
@@ -88,10 +134,10 @@ export default function PhControl() {
             labels: labels,
             datasets: [
               {
-                label: "AVG pH / Day",
-                data: chartData,
-                backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-                borderColor: ["rgba(255, 99, 132, 1)"],
+                label: "pH",
+                data: chartData.pH,
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                borderColor: "rgba(255, 99, 132, 1)",
                 borderWidth: 1,
               },
             ],
@@ -111,7 +157,7 @@ export default function PhControl() {
     }
   }, [isOpen, chartData, labels]);
 
-  function handleDownloadPNG() {
+  const handleDownloadPNG = () => {
     if (chartRef.current) {
       const file = chartRef.current.toDataURL("image/png");
       const link = document.createElement("a");
@@ -119,13 +165,13 @@ export default function PhControl() {
       link.download = "phLineChart.png";
       link.click();
     }
-  }
+  };
 
-  function handleDownloadExcel() {
+  const handleDownloadExcel = () => {
     if (chartRef.current && (chartRef.current as any).chart) {
       const chart = (chartRef.current as any).chart;
       const data = [
-        ["Waktu", "pH Hidroponik (PPM)"],
+        ["Waktu", "pH Hidroponik"],
         ...chart.data.labels.map((label: any, index: string | number) => [
           label,
           chart.data.datasets[0].data[index],
@@ -133,14 +179,14 @@ export default function PhControl() {
       ];
       const worksheet = XLSX.utils.aoa_to_sheet(data);
       const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "SheetSuhuAirHidroponik"
-      );
-      XLSX.writeFile(workbook, "LineChartSuhuAirHidroponik.xlsx");
+      XLSX.utils.book_append_sheet(workbook, worksheet, "SheetpH");
+      XLSX.writeFile(workbook, "LineChartpH.xlsx");
     }
-  }
+  };
+
+  const handleTimeRangeChange = (range: string) => {
+    fetchData(range);
+  };
 
   return (
     <>
@@ -155,7 +201,7 @@ export default function PhControl() {
             endAngle={110}
             width={200}
             height={200}
-            value={pHValue}
+            value={pHValue} 
             valueMin={0}
             valueMax={14}
             sx={(theme) => ({
@@ -183,29 +229,50 @@ export default function PhControl() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                History pH
-              </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">History pH</ModalHeader>
               <ModalBody className="w-full">
-                {/* <div className="flex flex-col justify-center items-center text-sm">
-                  <p className="text-base font-bold pb-2">
-                    Jumlah pH up dan Down pada Kontainer
-                  </p>
-                  <p className="text-base pb-2">
-                    Sisa Larutan pH Up : {pHUp} Liter
-                  </p>
-                  <p className="text-base pb-2">
-                    Sisa Larutan pH Down : {pHDown} Liter
-                  </p>
-                </div> */}
                 <div style={{ padding: "16px" }} className="flex flex-col">
+                  <div className="flex flex-row justify-end items-center">
+                    <Dropdown backdrop="transparent" radius="sm" className="p-1 mb-4">
+                      <DropdownTrigger>
+                        <Button variant="flat" color="success" size="sm" radius="sm">
+                          <TuneIcon />
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu aria-label="Filter Time Range">
+                        <DropdownItem
+                          onClick={() => handleTimeRangeChange("1d")}
+                          key="1d"
+                        >
+                          1 Hari yang Lalu
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => handleTimeRangeChange("7d")}
+                          key="7d"
+                        >
+                          7 Hari yang Lalu
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => handleTimeRangeChange("1m")}
+                          key="1m"
+                        >
+                          1 Bulan yang Lalu
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </div>
                   <div>
                     <canvas ref={chartRef} />
                   </div>
-                  <div className="mt-6 flex justify-center items-center w-/12">
+                  <div className="mt-6 flex justify-center items-center w-full">
                     <Dropdown backdrop="opaque" radius="sm" className="p-2">
                       <DropdownTrigger>
-                        <Button variant="flat" color="success" size="sm" radius="sm">
+                        <Button
+                          variant="flat"
+                          color="success"
+                          size="sm"
+                          radius="sm"
+                        >
                           Download chart
                         </Button>
                       </DropdownTrigger>

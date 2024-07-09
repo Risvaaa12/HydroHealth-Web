@@ -38,7 +38,7 @@ export default function Admin() {
 
   const [currentTime, setCurrentTime] = useState(Date.now());
   const [searchQuery, setSearchQuery] = useState("");
-  const [logs, setLogs] = useState<
+  const [logsAdmin, setLogsAdmin] = useState<
     {
       timestamp: number;
       activity: string;
@@ -69,7 +69,7 @@ export default function Admin() {
   };
 
   const logActivity = (activity: string) => {
-    const logRef = ref(database, "logs");
+    const logRef = ref(database, "logsAdmin");
     const newLogRef = push(logRef);
     set(newLogRef, {
       timestamp: Date.now(),
@@ -110,17 +110,17 @@ export default function Admin() {
 
 
   useEffect(() => {
-    const logsRef = ref(database, "logs");
+    const logsAdminRef = ref(database, "logsAdmin");
 
-    const unsubscribe = onValue(logsRef, (snapshot) => {
-      const logsData = snapshot.val() || {};
-      const logsList = Object.values(logsData).map((log) => {
+    const unsubscribe = onValue(logsAdminRef, (snapshot) => {
+      const logsAdminData = snapshot.val() || {};
+      const logsAdminList = Object.values(logsAdminData).map((log) => {
         return log as {
           timestamp: number;
           activity: string;
         };
       });
-      setLogs(logsList.reverse());
+      setLogsAdmin(logsAdminList.reverse());
     });
 
     return () => {
@@ -154,12 +154,12 @@ export default function Admin() {
 
   const [pageListLog, setPageListLog] = useState(1);
   const rowsPerPageListLog = 5;
-  const pagesListLog = Math.ceil(logs.length / rowsPerPageListLog);
+  const pagesListLog = Math.ceil(logsAdmin.length / rowsPerPageListLog);
   const paginatedListLog = React.useMemo(() => {
     const start = (pageListLog - 1) * rowsPerPageListLog;
     const end = start + rowsPerPageListLog;
-    return logs.slice(start, end);
-  }, [pageListLog, logs]);
+    return logsAdmin.slice(start, end);
+  }, [pageListLog, logsAdmin]);
 
   if (isCheckingAuth) {
     return <AlertCheckAuth />;

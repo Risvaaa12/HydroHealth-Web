@@ -182,15 +182,17 @@ export default function Monitoring() {
             <p className="font-semibold text-base sm:text-xl py-4">
               Monitoring Hidroponik
             </p>
-            <div className="grid grid-cols-1 mb-2 sm:grid-cols-2 gap-4 w-full sm:w-[70%] items-center sm:mx-12">
+            {/* <div className="grid grid-cols-1 mb-2 sm:grid-cols-2 gap-4 w-full sm:w-[70%] items-center sm:mx-12">
               {renderProgressBar("Sisa Larutan Pupuk Daun", sisaPupukDaun, LocalFlorist)}
               {renderProgressBar("Sisa Larutan Pestisida", sisaPestisida, BugReport)}
-            </div>
+            </div> */}
             <div className="grid grid-cols-1 mb-2 sm:grid-cols-4 gap-4  sm:w-[90%] w-full sm:mx-12">
               {renderProgressBar("Sisa Larutan Nutrisi AB", sisaNutrisiAB, Nature)}
-              {renderProgressBar("Sisa Larutan pH Up", pHUp, Opacity)}
+              {/* {renderProgressBar("Sisa Larutan pH Up", pHUp, Opacity)} */}
               {renderProgressBar("Sisa Larutan pH Down", pHDown, Opacity)}
-              {renderProgressBar("Sisa Larutan Kontainer", sisaKontainer, WaterDrop)}
+              {/* {renderProgressBar("Sisa Larutan Kontainer", sisaKontainer, WaterDrop)} */}
+              {renderProgressBar("Sisa Larutan Pupuk Daun", sisaPupukDaun, LocalFlorist)}
+              {renderProgressBar("Sisa Larutan Pestisida", sisaPestisida, BugReport)}
               {/* <div>
               {weatherInfo && (
                 <Card className="flex flex-col items-center justify-center p-4 mt-4  w-full sm:mx-12 rounded-lg outline outline-2">

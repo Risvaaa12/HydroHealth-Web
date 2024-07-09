@@ -1,4 +1,3 @@
-import GalleryInstagram from "../../components/GalleryInstagram";
 import Collaboration from "@/components/Collaboration";
 import AboutUs from "@/components/AboutUs";
 

@@ -53,13 +53,13 @@ export default function Hero() {
         {/* <div className="w-full">
           <Lottie src="https://cdn.lottielab.com/l/DgQH6fWfyN7kmq.json" autoplay />
         </div> */}
-        <button className=" bg-[#c2efa8] px-8 py-2 font-bold text-center rounded-lg hover:opacity-70">
+        {/* <button className="  px-8 py-2 font-bold text-center rounded-lg hover:opacity-70">
           <Link 
             href="/#"
             rel="noopener" >
           </Link>
              Download <CloudDownloadIcon/>
-          </button>
+          </button> */}
       </div>
       <div className="mt-12 ml-6 lg:ml-24 lg:mt-28 ">
         <h1 className="text-4xl font-bold lg:text-5xl">About</h1>

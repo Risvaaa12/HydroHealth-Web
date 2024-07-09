@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { Chart } from "chart.js/auto";
 import { ref, onValue } from "firebase/database";
 import { database } from "../../firebaseConfig";
@@ -11,9 +11,8 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import CloudIcon from "@mui/icons-material/Cloud";
-import * as XLSX from "xlsx";
 import TuneIcon from "@mui/icons-material/Tune";
+import * as XLSX from "xlsx";
 
 export default function LineChartSuhu() {
   const chartRef = useRef<HTMLCanvasElement>(null);
@@ -24,15 +23,7 @@ export default function LineChartSuhu() {
   const [labels, setLabels] = useState<string[]>([]);
   const [timestamp, setTimestamp] = useState<string>("");
 
-  useEffect(() => {
-    fetchData();
-  }, []); // Fetch initial data on component mount
-
-  useEffect(() => {
-    drawChart();
-  }, [chartData, labels]); // Redraw chart when data or labels change
-
-  const fetchData = async (timeRange: string = "1d") => {
+  const fetchData = useCallback(async (timeRange: string = "1d") => {
     try {
       const sensorRef = ref(database, "Monitoring");
       onValue(sensorRef, (snapshot) => {
@@ -43,30 +34,32 @@ export default function LineChartSuhu() {
           const humidityValues: number[] = [];
           const newLabels: string[] = [];
 
-          // Assuming data is structured as { time: { Suhu: ..., Humidity: ... }, ... }
           Object.keys(data).forEach((time) => {
             newLabels.push(time);
             temperatureValues.push(parseFloat(data[time].Suhu));
             humidityValues.push(parseFloat(data[time].Kelembaban));
           });
 
-          // Apply time range filter
           const filteredLabels = filterLabels(newLabels, timeRange);
-          const filteredTemperature = filterData(temperatureValues, newLabels, filteredLabels);
-          const filteredHumidity = filterData(humidityValues, newLabels, filteredLabels);
+          const newLabelsLimited = filteredLabels.slice(-30); // Ambil 30 data terbaru
+          const filteredTemperature = filterData(temperatureValues, newLabels, newLabelsLimited);
+          const filteredHumidity = filterData(humidityValues, newLabels, newLabelsLimited);
 
-          setLabels(filteredLabels);
+          setLabels(newLabelsLimited);
           setChartData({ udara: filteredTemperature, kelembaban: filteredHumidity });
 
-          // Set timestamp to the latest time
-          const latestTime = filteredLabels[filteredLabels.length - 1];
+          const latestTime = newLabelsLimited[newLabelsLimited.length - 1];
           setTimestamp(latestTime);
         }
       });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const filterLabels = (labels: string[], timeRange: string) => {
     const currentDate = new Date();
@@ -86,26 +79,25 @@ export default function LineChartSuhu() {
         break;
     }
 
-    const filteredLabels = labels.filter((label) => {
-      const labelDate = new Date(`1970-01-01T${label}:00Z`);
+    return labels.filter((label) => {
+      const [hours, minutes] = label.split(":").map(Number);
+      const labelDate = new Date();
+      labelDate.setHours(hours);
+      labelDate.setMinutes(minutes);
       return labelDate >= filterDate;
     });
-
-    return filteredLabels;
   };
 
   const filterData = (data: number[], originalLabels: string[], filteredLabels: string[]) => {
-    const filteredData = originalLabels.reduce((acc, label, index) => {
+    return originalLabels.reduce((acc, label, index) => {
       if (filteredLabels.includes(label)) {
         acc.push(data[index]);
       }
       return acc;
     }, [] as number[]);
-
-    return filteredData;
   };
 
-  const drawChart = () => {
+  const drawChart = useCallback(() => {
     if (chartRef.current) {
       if ((chartRef.current as any).chart) {
         (chartRef.current as any).chart.destroy();
@@ -149,7 +141,11 @@ export default function LineChartSuhu() {
         (chartRef.current as any).chart = newChart;
       }
     }
-  };
+  }, [chartData, labels]);
+
+  useEffect(() => {
+    drawChart();
+  }, [drawChart]);
 
   const handleDownloadImagePNG = () => {
     if (chartRef.current) {
@@ -165,8 +161,8 @@ export default function LineChartSuhu() {
     if (chartRef.current && (chartRef.current as any).chart) {
       const chart = (chartRef.current as any).chart;
       const data = [
-        ["Tanggal", "Waktu", "Suhu Air Hidroponik (°C)", "Suhu Udara (°C)"],
-        ...chart.data.labels.map((label: any, index: string | number) => [
+        ["Tanggal", "Waktu", "Suhu Udara (°C)", "Kelembaban (%)"],
+        ...chart.data.labels.map((label: any, index: number) => [
           "",
           label,
           chart.data.datasets[0].data[index],
@@ -183,6 +179,7 @@ export default function LineChartSuhu() {
   const handleTimeRangeChange = (range: string) => {
     fetchData(range);
   };
+
 
   return (
     <div className="outline p-2 outline-green-200 rounded-lg h-full w-full">

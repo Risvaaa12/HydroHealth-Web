@@ -1,4 +1,7 @@
-import Topologi from "../assets/images/components/Topologi.jpg";
+import Fitur1 from "../assets/images/components/Fitur1.jpg";
+import Fitur2 from "../assets/images/components/Fitur2.jpg";
+import Fitur3 from "../assets/images/components/Fitur3.jpg";
+import Fitur4 from "../assets/images/components/Fitur4.jpg";
 import { Button, Card, CardFooter, Image, Accordion, AccordionItem } from "@nextui-org/react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -14,16 +17,20 @@ const Feature9 = "Fitur ini bekerja untuk pemberian pupuk dan pestisida otomatis
 
 const carouselImages = [
   {
-    src: Topologi.src,
-    alt: "Rancangan Kerangka Hidroponik 1"
+    src: Fitur1.src,
+    alt: "RPemasangan Solar Panel"
   },
   {
-    src: Topologi.src,
-    alt: "Rancangan Kerangka Hidroponik 2"
+    src: Fitur2.src,
+    alt: "Bibit Cabai Hidroponik"
   },
   {
-    src: Topologi.src,
-    alt: "Rancangan Kerangka Hidroponik 3"
+    src: Fitur3.src,
+    alt: "Perancangan IOT"
+  },
+  {
+    src: Fitur4.src,
+    alt: "Visit Day FTK x DagoEng"
   }
 ];
 
@@ -56,7 +63,7 @@ export default function Features() {
             </div>
             <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-lg ml-1 z-10">
               <p className="text-tiny text-white p-2 text-center">
-                Rancangan Kerangka Hidroponik
+                Developing Hydrohealth
               </p>
             </CardFooter>
           </Card>

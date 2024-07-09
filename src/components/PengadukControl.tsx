@@ -45,7 +45,7 @@ export default function PengadukControl () {
             <h1 className="font-bold text-center text-sm sm:text-base">Pengaduk Kontainer Larutan</h1>
             <div className="flex flex-row gap-6  bg-green-200 p-2 rounded-lg justify-center items-center">
             <div className="flex flex-col justify-center items-center gap-2 text-sm">
-                <p className="text-sm text-center">Sisa Larutan: {larutanValue} Liter </p>
+                <p className="text-sm text-center">Pengaduk dikendalikan otomatis</p>
                 {/* <p className="text-sm text-center pb-2">Pengaduk dikendalikan otomatis</p> */}
                 <div className="flex justify-center">
                     <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
