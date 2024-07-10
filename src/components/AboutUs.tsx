@@ -26,7 +26,7 @@ import {
               </div>
               <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                 <p className="text-tiny text-white p-2 text-center">
-                    FTK Undiksha X Dago Engineering
+                    Iim Smart Green Garden
                 </p>
               </CardFooter>
             </Card>
@@ -38,7 +38,7 @@ import {
             Program Smart Green Garden ini berfokus pada pengembangan sektor pertanian hidroponik yang memanfaatkan teknologi canggih. Teknologi yang diterapkan meliputi Internet of Things (IoT), yang memungkinkan pengawasan dan pengendalian sistem pertanian secara real-time; Artificial Intelligence (AI), yang membantu dalam pengambilan keputusan berbasis data untuk meningkatkan efisiensi dan produktivitas; serta pemanfaatan Energi Terbarukan dari sinar matahari melalui penggunaan panel surya.
 
             Kerja sama ini tidak hanya bertujuan untuk meningkatkan kualitas pendidikan dan penelitian di FTK-Undiksha, tetapi juga untuk memberikan kontribusi nyata dalam pengembangan teknologi pertanian yang berkelanjutan. Mahasiswa yang terlibat dalam program ini diharapkan dapat memperoleh pengalaman praktis dan pengetahuan yang mendalam tentang teknologi-teknologi terbaru, sehingga mereka siap untuk menghadapi tantangan di dunia kerja.
-
+          
             </p>
         </div>
         </div>

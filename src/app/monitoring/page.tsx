@@ -51,13 +51,13 @@ export default function Monitoring() {
   }, []);
 
 
-  useEffect(() => {
-    const pHRef = ref(database, 'Monitoring/Sisa pH Up');
-    onValue(pHRef, (snapshot) => {
-      const data = snapshot.val();
-      setPHUp(data);
-    });
-  },[]);
+  // useEffect(() => {
+  //   const pHRef = ref(database, 'Monitoring/Sisa pH Up');
+  //   onValue(pHRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     setPHUp(data);
+  //   });
+  // },[]);
 
   useEffect(() => {
     const pHRef = ref(database, 'Monitoring/Sisa pH Down');
@@ -67,13 +67,13 @@ export default function Monitoring() {
     });
   },[]);
 
-  useEffect(() => {
-    const kontainerRef = ref(database, "Monitoring/Sisa Kontainer");
-    onValue(kontainerRef, (snapshot) => {
-      const data = snapshot.val();
-      setSisaKontainer(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const kontainerRef = ref(database, "Monitoring/Sisa Kontainer");
+  //   onValue(kontainerRef, (snapshot) => {
+  //     const data = snapshot.val();
+  //     setSisaKontainer(data);
+  //   });
+  // }, []);
 
   useEffect(() => {
     const pupukDaunRef = ref(database, "Monitoring/Sisa Pupuk Daun");

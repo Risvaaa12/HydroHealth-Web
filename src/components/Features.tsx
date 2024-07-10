@@ -38,7 +38,7 @@ export default function Features() {
   return (
     <div className="flex flex-col gap-8 justify-center pb-12 pt-4 items-center max-w-screen-xl">
       <div className="pt-2 p-4 grid grid-cols-1 sm:grid-cols-2 gap-6 justify-center items-center max-w-screen-xl">
-        <div className="flex flex-col">
+        <div className="flex flex-col sm:mt-6 mt-2">
           <Card isFooterBlurred radius="lg" className="border-none">
             <div className="relative overflow-hidden rounded-inherit rounded-large">
               <Carousel

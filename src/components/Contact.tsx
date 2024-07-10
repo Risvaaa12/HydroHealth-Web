@@ -16,7 +16,7 @@ export default function Contact() {
                   <div className="mx-auto w-full sm:max-w-xl">
                       <form action="https://formbold.com/s/obpRa" method="POST">
                           <div className="mb-5">
-                              <label htmlFor="name" className="block mb-3 text-base font-medium text-emerald-500">
+                              <label htmlFor="name" className="block mb-3 text-base font-medium ">
                                   Full Name
                               </label>
                               <input
@@ -28,7 +28,7 @@ export default function Contact() {
                               />
                           </div>
                           <div className="mb-5">
-                              <label htmlFor="email" className="block mb-3 text-base font-medium text-emerald-500">
+                              <label htmlFor="email" className="block mb-3 text-base font-medium ">
                                   Email Address
                               </label>
                               <input
@@ -40,7 +40,7 @@ export default function Contact() {
                               />
                           </div>
                           <div className="mb-5">
-                              <label htmlFor="subject" className="block mb-3 text-base font-medium text-emerald-500">
+                              <label htmlFor="subject" className="block mb-3 text-base font-medium ">
                                   Subject
                               </label>
                               <input
@@ -52,7 +52,7 @@ export default function Contact() {
                               />
                           </div>
                           <div className="mb-5">
-                              <label htmlFor="message" className="block mb-3 text-base font-medium text-emerald-500">
+                              <label htmlFor="message" className="block mb-3 text-base font-medium ">
                                   Message
                               </label>
                               <textarea

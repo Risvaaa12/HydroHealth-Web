@@ -13,6 +13,33 @@ const nextConfig = {
     ];
     return config;
   },
+  images:{
+    domains: [
+      "hydrohealth.smartgreenovation.com",
+      "hydrohealth.dev.smartgreenovation.com",
+      "lh3.googleusercontent.com",
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "hydrohealth.smartgreenovation.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "hydrohealth.dev.smartgreenovation.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -5,7 +5,7 @@ const app = express();
 
 // Contoh konfigurasi proxy
 app.use('/api', createProxyMiddleware({
-  target: 'http://hydrohealth.dev.smartgreenovation.com', // Ganti dengan base URL API Anda
+  target: '${process.env.NEXT_PUBLIC_VERCEL_FASTAPI_CLASSIFY}', // Ganti dengan base URL API Anda
   changeOrigin: true, // Mengizinkan perubahan origin
   secure: false, // Menonaktifkan validasi sertifikat SSL untuk permintaan dari server ke API (harus dipertimbangkan dengan hati-hati untuk produksi)
 }));
