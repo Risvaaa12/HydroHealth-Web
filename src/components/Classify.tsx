@@ -21,7 +21,6 @@ export default function Classify() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [classificationResult, setClassificationResult] = useState<string>('');
   
-
   const handleChooseImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -36,7 +35,7 @@ export default function Classify() {
       formData.append('file', file);
 
       try {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_VERCEL_FASTAPI_CLASSIFY}/upload/classify`, formData, {
+        const response = await axios.post(`/api/upload/classify`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'accept': 'application/json',

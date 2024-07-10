@@ -13,7 +13,7 @@ const nextConfig = {
     ];
     return config;
   },
-  images:{
+  images: {
     domains: [
       "hydrohealth.smartgreenovation.com",
       "hydrohealth.dev.smartgreenovation.com",
@@ -27,7 +27,7 @@ const nextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "hydrohealth.dev.smartgreenovation.com",
         port: "",
         pathname: "/**",
@@ -39,6 +39,14 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/upload/classify',
+        destination: 'http://hydrohealth.dev.smartgreenovation.com/upload/classify',
+      },
+    ];
   },
 };
 
