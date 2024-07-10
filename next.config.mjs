@@ -27,7 +27,7 @@ const nextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "https",
+        protocol: "http",
         hostname: "hydrohealth.dev.smartgreenovation.com",
         port: "",
         pathname: "/**",
