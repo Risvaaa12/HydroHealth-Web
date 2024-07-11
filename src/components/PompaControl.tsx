@@ -18,7 +18,7 @@ import { ref, onValue, set } from "firebase/database";
 
 export default function PompaControl () {
     const [isPompaValue, setPompaValue] = useState(0);
-  const pompaRef = ref(database, "Kontrol_Panel/Pompa Utama");
+  const pompaRef = ref(database, "Kontrol_panel/Pompa_air");
 
 
     useEffect(() => {

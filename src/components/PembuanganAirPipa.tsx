@@ -15,7 +15,7 @@ import { ref, onValue, set } from "firebase/database";
 
 export default function PembuanganAirPipa() {
   const [isSelenoidValve, setIsSelenoidValve] = useState(false);
-  const valveRef = ref(database, "Kontrol_Panel/Pembuangan Pipa Hidroponik");
+  const valveRef = ref(database, "Kontrol_panel/Pompa_nutrisi");
 
   useEffect(() => {
     onValue(valveRef, (snapshot) => {
@@ -29,11 +29,11 @@ export default function PembuanganAirPipa() {
 
   return (
     <div className="bg-green-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
-      <h1 className="font-bold text-center text-sm sm:text-base">Pengurasan Air Pipa</h1>
+      <h1 className="font-bold text-center text-sm sm:text-base">Pompa Nutrisi</h1>
       <div className="flex flex-row gap-6 bg-green-200 p-2 rounded-lg justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-2 text-sm">
             <div className="flex flex-col justify-center items-center text-sm">
-                <p className="text-sm text-center pb-2">Pembuangan Air dari Pipa</p>
+                <p className="text-sm text-center pb-2">Pengisian Nutrisi ke Kontainer Utama</p>
                 </div>
                 <div className="flex justify-center">
                 <Button size="sm"  variant="faded" color="secondary" onPress={handleManualToggle}>

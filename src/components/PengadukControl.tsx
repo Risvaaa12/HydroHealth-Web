@@ -17,7 +17,7 @@ import { ref, onValue, set } from "firebase/database";
 
 export default function PengadukControl () {
     const [isPengadukKontainer, setPengadukKontainer] = useState(0);
-    const pengadukRef = ref(database, "Kontrol_Panel/Pengaduk Larutan");
+    const pengadukRef = ref(database, "Kontrol_panel/Pengaduk_larutan");
     const [larutanValue, setLarutanValue] = useState<number>(0);
 
     useEffect(() => {

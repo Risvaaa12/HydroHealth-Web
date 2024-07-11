@@ -19,7 +19,7 @@ import AlertCheckAuth from "@/components/AlertCheckAuth";
 import AlertLoginGuest from "@/components/AlertLoginGuest";
 import AlertAuthorizedMember from "@/components/AlertAuthorizedMember";
 import AddTanaman from "@/components/AddTanaman";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, limitToLast, query } from "firebase/database";
 import { database } from "../../../firebaseConfig";
 import React, { useRef, useState, useEffect } from "react";
 import LogActivity from "@/components/LogActivity";
@@ -42,53 +42,80 @@ export default function Monitoring() {
   const [sisaPestisida, setSisaPestisida] = useState<number>(0);
   const [weatherInfo, setWeatherInfo] = useState<any>(null); // State untuk menyimpan data cuaca
 
+  //Sisa Nutrisi
   useEffect(() => {
-    const dataRef = ref(database, "Monitoring/Sisa Nutrisi AB");
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();
-      setSisaNutrisiAB(data);
-    });
+    try {
+      const nutrisiRef = ref(database, "Monitoring");
+      const latestQuery = query(nutrisiRef, limitToLast(1));
+
+      onValue(latestQuery, (latestSnapshot) => {
+        latestSnapshot.forEach((latestDataSnapshot) => {
+          const latestData = latestDataSnapshot.val();
+          if (latestData && latestData.SisaNutrisi) {
+            setSisaNutrisiAB(parseFloat(latestData.SisaNutrisi)); 
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching latest Nutrisi:", error);
+    }
   }, []);
 
-
-  // useEffect(() => {
-  //   const pHRef = ref(database, 'Monitoring/Sisa pH Up');
-  //   onValue(pHRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     setPHUp(data);
-  //   });
-  // },[]);
-
+  //Sisa pH Down
   useEffect(() => {
-    const pHRef = ref(database, 'Monitoring/Sisa pH Down');
-    onValue(pHRef, (snapshot) => {
-      const data = snapshot.val();
-      setPHDown(data);
-    });
-  },[]);
+    try {
+      const phDownRef = ref(database, "Monitoring");
+      const latestQuery = query(phDownRef, limitToLast(1));
 
-  // useEffect(() => {
-  //   const kontainerRef = ref(database, "Monitoring/Sisa Kontainer");
-  //   onValue(kontainerRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     setSisaKontainer(data);
-  //   });
-  // }, []);
-
-  useEffect(() => {
-    const pupukDaunRef = ref(database, "Monitoring/Sisa Pupuk Daun");
-    onValue(pupukDaunRef, (snapshot) => {
-      const data = snapshot.val();
-      setSisaPupukDaun(data);
-    });
+      onValue(latestQuery, (latestSnapshot) => {
+        latestSnapshot.forEach((latestDataSnapshot) => {
+          const latestData = latestDataSnapshot.val();
+          if (latestData && latestData.SisaPhDown) {
+            setPHDown(parseFloat(latestData.SisaPhDown)); 
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching latest pH Down:", error);
+    }
   }, []);
 
+  //Sisa Pupuk Daun
   useEffect(() => {
-    const pestisidaRef = ref(database, "Monitoring/Sisa Pestisida");
-    onValue(pestisidaRef, (snapshot) => {
-      const data = snapshot.val();
-      setSisaPestisida(data);
-    });
+    try {
+      const pupukDaunRef = ref(database, "Monitoring");
+      const latestQuery = query(pupukDaunRef, limitToLast(1));
+
+      onValue(latestQuery, (latestSnapshot) => {
+        latestSnapshot.forEach((latestDataSnapshot) => {
+          const latestData = latestDataSnapshot.val();
+          if (latestData && latestData.SisaPupukDaun) {
+            setSisaPupukDaun(parseFloat(latestData.SisaPupukDaun)); 
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching latest Pupuk Daun:", error);
+    }
+  }, []);
+
+  //Sisa Pestisida
+  useEffect(() => {
+    try {
+      const pestisidaRef = ref(database, "Monitoring");
+      const latestQuery = query(pestisidaRef, limitToLast(1));
+
+      onValue(latestQuery, (latestSnapshot) => {
+        latestSnapshot.forEach((latestDataSnapshot) => {
+          const latestData = latestDataSnapshot.val();
+          if (latestData && latestData.SisaPestisida) {
+            setSisaPestisida(parseFloat(latestData.SisaPestisida)); 
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching latest Pestisida:", error);
+    }
   }, []);
 
   useEffect(() => {
@@ -113,11 +140,9 @@ export default function Monitoring() {
         console.error("Error fetching weather data:", error);
       }
     };
-  
+
     fetchWeatherData();
   }, []);
-  
-  
 
   if (isCheckingAuth) {
     return <AlertCheckAuth />;
@@ -134,10 +159,10 @@ export default function Monitoring() {
   const renderProgressBar = (label: string, value: number, IconComponent: any) => (
     <div className="flex flex-col items-center bg-green-200 p-3 rounded-xl">
       <div className="flex items-center">
-        <IconComponent className="text-green-600 mr-2" />
+        <IconComponent className="text-emerald-500 mr-2" />
         <p className="text-sm font-semibold">{label}</p>
       </div>
-      <LinearProgress variant="determinate" value={(value / 100) * 100} className="w-full mt-2" />
+      <LinearProgress variant="determinate" value={(value / 5) * 100} className="w-full mt-2" />
       <p className="text-xs mt-1">{value} Liter</p>
     </div>
   );
@@ -178,7 +203,7 @@ export default function Monitoring() {
             </p>
             <AddTanaman />
           </div>
-          <div className="flex p-2 border mt-4 rounded-lg justify-center outline outline-2 items-center flex-col">
+          <div className="flex p-2 border mt-4 rounded-lg justify-center w-full outline outline-2 items-center flex-col">
             <p className="font-semibold text-base sm:text-xl py-4">
               Monitoring Hidroponik
             </p>

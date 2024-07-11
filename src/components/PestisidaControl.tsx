@@ -17,7 +17,7 @@ import { ref, onValue, set } from "firebase/database";
 
 export default function PestisidaControl () {
     const [isPestisida, setpestisida] = useState(0);
-    const pestisidaRef = ref(database, "Kontrol_Panel/Misting Pestisida");
+    const pestisidaRef = ref(database, "Kontrol_panel/Misting_pestisida");
     const [pestisidaValue, setPestisidaValue] = useState<number>(0);
 
     useEffect(() => {

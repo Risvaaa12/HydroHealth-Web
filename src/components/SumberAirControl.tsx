@@ -15,7 +15,7 @@ import { ref, onValue, set } from "firebase/database";
 
 export default function SumberAir() {
   const [isSelenoidValve, setIsSelenoidValve] = useState(false);
-  const valveRef = ref(database, "Kontrol_Panel/Pemasukan ke Kontainer");
+  const valveRef = ref(database, "Kontrol_panel/Peasukan_air");
   
   useEffect(() => {
     onValue(valveRef, (snapshot) => {

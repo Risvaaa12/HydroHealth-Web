@@ -35,10 +35,10 @@ export default function PelindungControl() {
         <div className="flex flex-col justify-center items-center gap-2 text-sm">
           <p className="text-sm text-center pb-2">Pelindung dikendalikan otomatis</p>
           <div className="flex justify-center">
-                <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
-                {isPelindungHama ? "Hidup" : "Mati"}
-                </Button>
-            </div>
+              <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
+              {isPelindungHama ? "Hidup" : "Mati"}
+              </Button>
+          </div>
         </div>
       </div>
     </div>

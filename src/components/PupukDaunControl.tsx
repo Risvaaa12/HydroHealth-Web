@@ -17,11 +17,11 @@ import { ref, onValue, set } from "firebase/database";
 
 export default function PupukDaunControl () {
     const [isPupukDaun, setPupukDaun] = useState(0);
-    const pupukRef = ref(database, "Kontrol_Panel/Misting Pupuk Daun");
+    const pupukRef = ref(database, "Kontrol_panel/Misting_pupuk");
     const [pupukValue, setPupukValue] = useState<number>(0);
 
     useEffect(() => {
-        const pupukRef = ref(database, "Sensor/Monitoring/Sisa Pupuk Daun");
+        const pupukRef = ref(database, "Sensor/Monitoring/Sisa_pupuk");
         onValue(pupukRef, (snapshot) => {
           const data = snapshot.val();
           const values = [data];
