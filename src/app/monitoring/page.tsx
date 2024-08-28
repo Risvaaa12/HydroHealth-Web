@@ -1,5 +1,5 @@
 "use client";
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { useAuth } from "@/middleware/AuthenticationProviders";
 import AuthenticationForm from "../../components/AuthenticationForm";
 import PompaControl from "../../components/PompaControl";
@@ -25,9 +25,18 @@ import React, { useRef, useState, useEffect } from "react";
 import LogActivity from "@/components/LogActivity";
 import { LinearProgress } from "@mui/material";
 import { Opacity, Science, WaterDrop, Nature, LocalFlorist, BugReport, Cloud } from "@mui/icons-material";
+import SensorsIcon from '@mui/icons-material/Sensors';
+import SensorsOffIcon from '@mui/icons-material/SensorsOff';
+
 
 // Import Axios for API requests (install axios if not installed yet)
 import axios from "axios";
+
+interface SensorData {
+  timestamp?: number;
+  // Properti lainnya
+}
+
 
 export default function Monitoring() {
   const user = useAuth();
@@ -41,6 +50,50 @@ export default function Monitoring() {
   const [sisaPupukDaun, setSisaPupukDaun] = useState<number>(0);
   const [sisaPestisida, setSisaPestisida] = useState<number>(0);
   const [weatherInfo, setWeatherInfo] = useState<any>(null); // State untuk menyimpan data cuaca
+  const [sensorStatus, setSensorStatus] = useState<JSX.Element | null>(null);
+
+  useEffect(() => {
+    const sensorRef = ref(database, "Monitoring/SensorData");
+    const latestQuery = query(sensorRef, limitToLast(1));
+  
+    onValue(latestQuery, (snapshot) => {
+      if (snapshot.exists()) {
+        const latestData: { [key: string]: SensorData } = snapshot.val();
+        const latestEntry = Object.values(latestData)[0];
+  
+        if (latestEntry && latestEntry.timestamp) {
+          const latestTimestamp = latestEntry.timestamp;
+          const currentTime = Date.now();
+          const timeDifference = currentTime - latestTimestamp;
+  
+          // Set sensor status based on time difference
+          if (timeDifference <= 30000) { // 30 detik
+            setSensorStatus(<SensorsIcon />);
+          } else {
+            setSensorStatus(<SensorsOffIcon />);
+          }
+        } else {
+          setSensorStatus(<SensorsOffIcon />);
+        }
+      } else {
+        setSensorStatus(<SensorsOffIcon />);
+      }
+    });
+  }, []);
+  
+
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin" || user.role === "member" || user.role === "registered") {
+        setIsAuthorized(true);
+      }
+      setIsCheckingAuth(false);
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [user]);
+
 
   //Sisa Nutrisi
   useEffect(() => {
@@ -120,7 +173,7 @@ export default function Monitoring() {
 
   useEffect(() => {
     if (user) {
-      if (user.role === "admin" || user.role === "member") {
+      if (user.role === "admin" || user.role === "member" || user.role === "registered") {
         setIsAuthorized(true);
       }
       setIsCheckingAuth(false);
@@ -172,36 +225,52 @@ export default function Monitoring() {
         <>
           <div className="flex flex-col justify-center items-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12 p-4 mb-4 justify-center items-center max-w-screen-xl">
-              <p className="text-xl sm:text-3xl font-bold pb-2">
-                Selamat datang di halaman{" "}
-                <span className="font-bold text-emerald-500">
-                  Kontrol dan Monitoring
-                </span>
-                , {user ? user.displayName : ""}👋
-              </p>
+              <div>
+                <p className="text-xl sm:text-3xl font-bold pb-2">
+                  Selamat datang di halaman{" "}
+                  <span className="font-bold text-emerald-500">
+                    Kontrol dan Monitoring
+                  </span>
+                  , {user ? user.displayName : ""}👋
+                </p>
+                <p className="text-base sm:text-sm font-sm text-gray-700">
+                  Status Sensor:{" "}
+                  <Tooltip  title="Merah: Wifi Down/Kelistrikan Down">
+                  <span className={`font-sm ${sensorStatus === <SensorsIcon/> ? "text-green-500" : "text-red-500"}`}>
+                    {sensorStatus}
+                  </span>
+                  </Tooltip>
+                </p>
+              </div>
               <Camera1 />
             </div>
-            <div className="flex border mt-4 p-2 rounded-lg flex-col outline outline-2 justify-center items-center gap-4">
-              <p className="font-semibold text-base sm:text-xl pt-4">
-                Kontrol Hidroponik
-              </p>
-              <div className="grid grid-cols-2 gap-1 sm:grid-cols-4 sm:gap-2 justify-center">
-                <PelindungControl />
-                <PengadukControl />
-                <PupukDaunControl />
-                <PestisidaControl />
-                <PompaControl />
-                <SumberAir />
-                <PembuanganAirKontainer />
-                <PembuanganAirPipa />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm outline outline-2 rounded-lg mt-4">
-            <p className="font-semibold text-base sm:text-xl  pt-4">
-              Manajemen Tanaman
-            </p>
-            <AddTanaman />
+             {/* Render only if the user is an admin */}
+             {user.role === "admin" && (
+              <>
+                <div className="flex border mt-4 p-2 rounded-lg flex-col outline outline-2 justify-center items-center gap-4">
+                  <p className="font-semibold text-base sm:text-xl pt-4">
+                    Kontrol Hidroponik
+                  </p>
+                  <div className="grid grid-cols-2 gap-1 sm:grid-cols-4 sm:gap-2 justify-center">
+                    <PelindungControl />
+                    <PengadukControl />
+                    <PupukDaunControl />
+                    <PestisidaControl />
+                    <PompaControl />
+                    <SumberAir />
+                    <PembuanganAirKontainer />
+                    <PembuanganAirPipa />
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-center items-center gap-2 w-full sm:w-10/12 mx-auto text-sm outline outline-2 rounded-lg mt-4">
+                  <p className="font-semibold text-base sm:text-xl  pt-4">
+                    Manajemen Tanaman
+                  </p>
+                  <AddTanaman />
+                </div>
+              </>
+            )}
           </div>
           <div className="flex p-2 border mt-4 rounded-lg justify-center w-full outline outline-2 items-center flex-col">
             <p className="font-semibold text-base sm:text-xl py-4">

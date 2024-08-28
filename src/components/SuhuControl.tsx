@@ -183,8 +183,9 @@ export default function LineChartSuhu() {
 
   return (
     <div className="outline p-2 outline-green-200 rounded-lg h-full w-full">
-      <div className="flex flex-row justify-end items-center">
-        <Dropdown backdrop="transparent" radius="sm" className="p-1 mb-4">
+      <div className="flex flex-row justify-center items-center">
+      <p className="text-sm pb-2">Suhu Normal: 18℃-27℃ </p>
+        {/* <Dropdown backdrop="transparent" radius="sm" className="p-1 mb-4">
           <DropdownTrigger>
             <Button variant="flat" color="success" size="sm" radius="sm">
               <TuneIcon />
@@ -210,7 +211,7 @@ export default function LineChartSuhu() {
               1 Bulan yang Lalu
             </DropdownItem>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
       </div>
 
       <canvas className="h-[45%]" ref={chartRef} />

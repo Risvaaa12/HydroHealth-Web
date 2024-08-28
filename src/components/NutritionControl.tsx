@@ -195,6 +195,7 @@ export default function NutritionControl() {
     <>
       <div id="nutrisi" className="bg-green-200 p-4 -pb-8 rounded-xl text-center flex flex-col justify-center items-center">
         <p className="font-semibold text-md">Monitoring dan Kontrol Nutrisi</p>
+        <p className="text-sm pb-2">Nutrisi Normal: 1200 - 1400 PPM</p>
         <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full">
           <Gauge
             startAngle={-110}

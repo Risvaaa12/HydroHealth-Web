@@ -112,7 +112,7 @@ const carouselImages = [
                       </Card>
                     </div>
                     <div className="w-full">
-                    <Classify/>
+                      <Classify/>
                     </div>
                   </>
                 </ModalBody>

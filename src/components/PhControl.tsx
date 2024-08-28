@@ -195,6 +195,7 @@ export default function PhControl() {
         className="bg-green-200 p-4 rounded-xl text-center flex flex-col justify-center items-center"
       >
         <p className="font-semibold  text-md">Monitoring dan Kontrol pH Air</p>
+        <p className="text-sm pb-2">pH Normal: 6 - 7</p>
         <div className="object-fit flex justify-center items-center h-1/2 w-full sm:h-full ">
           <Gauge
             startAngle={-110}

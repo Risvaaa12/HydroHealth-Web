@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/react";
 import { database } from "../../firebaseConfig"; // import the database instance
 import { ref, onValue, set } from "firebase/database";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function PelindungControl() {
   const [isPelindungHama, setPelindungHama] = useState(0);
@@ -34,11 +35,20 @@ export default function PelindungControl() {
       <div className="flex flex-row gap-6 bg-green-200 p-2 rounded-lg justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-2 text-sm">
           <p className="text-sm text-center pb-2">Pelindung dikendalikan otomatis</p>
-          <div className="flex justify-center">
+          <Tooltip title="This feature is under maintenance">
+            <span>
+              <div className="flex justify-center">
+                <Button disabled size="sm" variant="faded" className="text-gray-400">
+                {isPelindungHama ? "Hidup" : "Mati"}
+              </Button>
+          </div>
+            </span>
+          </Tooltip>
+          {/* <div className="flex justify-center">
               <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
               {isPelindungHama ? "Hidup" : "Mati"}
               </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

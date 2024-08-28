@@ -51,7 +51,7 @@ export default function Classify() {
         }
       } catch (error) {
         console.error('Error classifying image:', error);
-        alert('Failed to classify image.');
+        alert('Failed post to classify image.');
       }
     }
   };
