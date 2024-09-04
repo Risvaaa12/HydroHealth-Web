@@ -33,10 +33,10 @@ export default function PompaControl () {
 
     return (
         <div className="bg-green-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
-            <h1 className="font-bold text-center text-sm sm:text-base">Pompa Kontainer</h1>
+            <h1 className="font-bold text-center text-sm sm:text-base">Pompa Utama</h1>
             <div className="flex flex-row gap-6  bg-green-200 p-2 rounded-lg justify-center items-center">
             <div className="flex flex-col justify-center items-center gap-2 text-sm">
-                <p className="text-sm text-center pb-2">Pompa dikendalikan otomatis</p>
+                <p className="text-sm text-center pb-2">Pompa dari Kontainer ke Pipa</p>
                 <div className="flex justify-center">
                 <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
                 {isPompaValue ? "Hidup" : "Mati"}

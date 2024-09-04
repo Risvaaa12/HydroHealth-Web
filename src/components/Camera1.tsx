@@ -89,7 +89,7 @@ const carouselImages = [
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  Live Camera 1
+                  Live Camera 
                 </ModalHeader>
                 <ModalBody className="w-full">
                   <>
@@ -111,9 +111,9 @@ const carouselImages = [
                         </CardFooter> */}
                       </Card>
                     </div>
-                    <div className="w-full">
+                    {/* <div className="w-full">
                       <Classify/>
-                    </div>
+                    </div> */}
                   </>
                 </ModalBody>
                 <ModalFooter>

@@ -184,7 +184,7 @@ export default function LineChartSuhu() {
   return (
     <div className="outline p-2 outline-green-200 rounded-lg h-full w-full">
       <div className="flex flex-row justify-center items-center">
-      <p className="text-sm pb-2">Suhu Normal: 18℃-27℃ </p>
+      <p className="text-sm pb-2">Suhu Normal: 18℃-30℃ || Kelembaban Normal: 60%-80% </p>
         {/* <Dropdown backdrop="transparent" radius="sm" className="p-1 mb-4">
           <DropdownTrigger>
             <Button variant="flat" color="success" size="sm" radius="sm">

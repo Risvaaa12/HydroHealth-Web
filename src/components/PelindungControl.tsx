@@ -30,12 +30,14 @@ export default function PelindungControl() {
     };
 
   return (
-    <div className="bg-green-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
+    <>
+    <Tooltip title="This feature is under maintenance">
+    <div className="bg-slate-200 m-2 w-50 sm:w-70 py-2 rounded-lg">
       <h1 className="font-bold text-sm sm:text-base text-center">Pelindung Hama</h1>
-      <div className="flex flex-row gap-6 bg-green-200 p-2 rounded-lg justify-center items-center">
+      <div className="flex flex-row gap-6 bg-slate-200 p-2 rounded-lg justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-2 text-sm">
-          <p className="text-sm text-center pb-2">Pelindung dikendalikan otomatis</p>
-          <Tooltip title="This feature is under maintenance">
+          <p className="text-sm text-center pb-2">Sistem Pelindung Hama</p>
+          
             <span>
               <div className="flex justify-center">
                 <Button disabled size="sm" variant="faded" className="text-gray-400">
@@ -43,7 +45,6 @@ export default function PelindungControl() {
               </Button>
           </div>
             </span>
-          </Tooltip>
           {/* <div className="flex justify-center">
               <Button size="sm" variant="faded" color="secondary" onPress={handleManualToggle}>
               {isPelindungHama ? "Hidup" : "Mati"}
@@ -52,5 +53,7 @@ export default function PelindungControl() {
         </div>
       </div>
     </div>
+    </Tooltip>
+    </>
   );
 }
